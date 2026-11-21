@@ -1,0 +1,99 @@
+{
+ "gruppi": [
+  {
+   "nome": "Superlatives",
+   "perche": "Any competitor can say the same and nobody can check it.",
+   "formule": [
+    "best-in-class",
+    "industry-leading",
+    "world-class",
+    "the leading",
+    "world's first",
+    "state-of-the-art",
+    "cutting-edge",
+    "unparalleled",
+    "unmatched",
+    "revolutionary",
+    "game-changing"
+   ]
+  },
+  {
+   "nome": "Generation and AI labels",
+   "perche": "They date quickly and say nothing about what the product detects.",
+   "formule": [
+    "next-generation",
+    "next-gen",
+    "AI-powered",
+    "AI-driven",
+    "AI-native",
+    "agentic",
+    "autonomous",
+    "future-proof"
+   ]
+  },
+  {
+   "nome": "Coverage",
+   "perche": "Coverage of everything reads as coverage of nothing in particular.",
+   "formule": [
+    "end-to-end",
+    "all-in-one",
+    "comprehensive",
+    "holistic",
+    "360",
+    "single pane of glass",
+    "unified platform",
+    "complete visibility",
+    "full visibility"
+   ]
+  },
+  {
+   "nome": "Grades",
+   "perche": "There is no such grade.",
+   "formule": [
+    "military-grade",
+    "enterprise-grade",
+    "bank-grade"
+   ]
+  },
+  {
+   "nome": "Speed without a number",
+   "perche": "Fast needs a figure: seconds, minutes, hours.",
+   "formule": [
+    "real-time",
+    "24/7",
+    "proactive",
+    "instantly",
+    "at scale"
+   ]
+  },
+  {
+   "nome": "Fear and comfort",
+   "perche": "The buyer already knows the risk. Say what changes on Monday.",
+   "formule": [
+    "evolving threat landscape",
+    "stay ahead of threats",
+    "sophisticated attacks",
+    "peace of mind",
+    "sleep at night",
+    "before it's too late"
+   ]
+  },
+  {
+   "nome": "Fillers",
+   "perche": "Remove them and the sentence loses nothing.",
+   "formule": [
+    "robust",
+    "seamless",
+    "simplify security",
+    "secure your digital transformation",
+    "empower",
+    "trusted by"
+   ]
+  }
+ ],
+ "domande": [
+  "What do you detect or prevent, in one noun?",
+  "How fast, with a number and a unit?",
+  "For whom: which team, in what size of company?"
+ ]
+}

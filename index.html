@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lorenzo Asuni. Cybersecurity go-to-market, with the maths done</title>
+<link rel="canonical" href="https://cyber.lorenzoasuni.com/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cyber.lorenzoasuni.com/">
+<meta property="og:title" content="Lorenzo Asuni. Cybersecurity go-to-market, with the maths done">
+<meta property="og:description" content="GTM, marketing, brand and RevOps for security vendors, MSSPs and system integrators. Seven calculators, four missions and a dinosaur who is learning to count.">
+<meta name="description" content="GTM, marketing, brand and RevOps for security vendors, MSSPs and system integrators. Four calculators and field notes from both sides of the channel.">
+<style>
+@font-face { font-family: 'Archivo'; src: url('fonts/archivo-v25-latin-regular.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: 'Archivo'; src: url('fonts/archivo-v25-latin-700.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: 'Archivo'; src: url('fonts/archivo-v25-latin-900.woff2') format('woff2'); font-weight: 900; font-display: swap; }
+
+:root {
+  --carta: #F4EFE4; --carta-chiara: #FFFDF6; --ink: #15110D; --giallo: #F7C948;
+  --rosso: #E2381C; --arancio: #F08A2C; --nota: #5E574C; --filo: 2px solid var(--ink);
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--carta) linear-gradient(rgba(21,17,13,.04) 1px, transparent 1px) 0 0 / 24px 24px; background-image: linear-gradient(rgba(21,17,13,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(21,17,13,.04) 1px, transparent 1px); background-size: 24px 24px; background-color: var(--carta); color: var(--ink); font-family: 'Archivo', 'Helvetica Neue', Arial, sans-serif; font-size: 17px; line-height: 1.45; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.px { display: inline-block; line-height: 0; vertical-align: middle; }
+.px svg { display: block; }
+
+.testata { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px 48px; border-bottom: var(--filo); }
+.testata .nome { font-weight: 900; font-size: 19px; text-decoration: none; }
+.testata nav { display: flex; gap: 26px; flex-wrap: wrap; }
+.testata nav a { text-decoration: none; font-size: 15px; }
+.testata nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.testata .lingua { font-size: 15px; text-underline-offset: 4px; }
+
+.start { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: 56px; align-items: start; padding: 64px 48px 40px; max-width: 1320px; margin: 0 auto; }
+h1 { font-weight: 900; font-size: clamp(40px, 5.3vw, 76px); line-height: .98; letter-spacing: -.02em; margin: 0 0 24px; }
+.riga { font-size: 21px; max-width: 30em; margin: 0 0 36px; }
+
+.lato { border: 0; padding: 0; margin: 0; }
+.lato legend { font-weight: 700; padding: 0; margin-bottom: 12px; }
+.lato .scelte { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.lato button { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: center; text-align: left; font: inherit; color: inherit; background: var(--carta-chiara); border: var(--filo); padding: 14px 16px; cursor: pointer; }
+.lato button:hover { background: #FBF3D3; }
+.lato button[aria-pressed="true"] { background: var(--giallo); }
+.lato button strong { display: block; font-weight: 900; font-size: 19px; line-height: 1.15; }
+.lato button small { display: block; font-size: 14px; color: var(--nota); margin-top: 3px; }
+.lato button small.scheda { color: var(--ink); margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(21,17,13,.25); }
+.lato button[aria-pressed="true"] small { color: var(--ink); }
+.conferma { min-height: 1.5em; margin: 14px 0 0; font-size: 15px; }
+
+.finestra { border: var(--filo); background: var(--carta-chiara); }
+.finestra > header { display: flex; align-items: center; justify-content: space-between; background: var(--ink); color: var(--carta); padding: 9px 12px; }
+.finestra > header i { width: 10px; height: 10px; background: var(--giallo); display: block; }
+.finestra .corpo { padding: 20px; }
+
+.pipeline .corpo { display: grid; grid-template-columns: minmax(0, 1fr) 150px; gap: 22px; align-items: start; }
+.campi { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+.campi label { display: block; font-size: 14px; color: var(--nota); }
+.campi input { width: 100%; margin-top: 4px; font: inherit; font-weight: 700; color: var(--ink); background: var(--carta); border: var(--filo); border-radius: 0; padding: 8px 10px; }
+.esiti { margin: 18px 0 0; padding: 14px 0 0; border-top: var(--filo); }
+.esiti div { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 5px 0; }
+.esiti dt { font-size: 15px; }
+.esiti dd { margin: 0; }
+.chiusura { margin: 12px 0 0; padding: 10px 12px; background: var(--giallo); font-weight: 700; }
+.rimando { margin: 12px 0 0; font-size: 14px; color: var(--nota); }
+.calcolatrice svg { width: 150px; height: auto; display: block; }
+
+.fascia { padding: 0 48px 56px; max-width: 1320px; margin: 0 auto; }
+.tabellone table { width: 100%; border-collapse: collapse; }
+.tabellone th, .tabellone td { text-align: left; padding: 11px 20px; border-bottom: 1px solid rgba(21,17,13,.18); vertical-align: baseline; }
+.tabellone tr:last-child th, .tabellone tr:last-child td { border-bottom: 0; }
+.tabellone th { font-weight: 400; width: 38%; }
+.tabellone td.valore { width: 150px; white-space: nowrap; }
+.tabellone td.nota { font-size: 14px; color: var(--nota); }
+
+.scacchi { height: 24px; background: conic-gradient(var(--ink) 25%, transparent 0 50%, var(--ink) 0 75%, transparent 0) 0 0 / 24px 24px; border-top: var(--filo); }
+
+.blocco { max-width: 1320px; margin: 0 auto; padding: 72px 48px 0; }
+.blocco h2 { font-weight: 900; font-size: clamp(30px, 3.5vw, 50px); line-height: 1.02; letter-spacing: -.015em; margin: 0 0 18px; max-width: 17em; }
+.blocco h3 { font-weight: 900; font-size: 21px; line-height: 1.15; margin: 0 0 10px; }
+.intro { font-size: 19px; max-width: 39em; margin: 0 0 16px; }
+.domande { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: var(--filo); background: var(--carta-chiara); margin-top: 28px; }
+.domande article { padding: 24px 24px 20px; border-right: var(--filo); }
+.domande article:last-child { border-right: 0; }
+.domande p { margin: 0 0 12px; font-size: 16px; }
+.domande p.punto { font-weight: 700; background: var(--giallo); padding: 8px 10px; margin: 14px 0 0; }
+
+.livelli { margin-top: 28px; }
+.livelli table { width: 100%; border-collapse: collapse; font-size: 15.5px; }
+.livelli th, .livelli td { text-align: left; vertical-align: top; padding: 14px 16px; border-bottom: 1px solid rgba(21,17,13,.18); }
+.livelli thead th { font-size: 13.5px; color: var(--nota); font-weight: 400; border-bottom: var(--filo); }
+.livelli tbody tr:last-child th, .livelli tbody tr:last-child td { border-bottom: 0; }
+.livelli tbody th { width: 19%; font-weight: 900; font-size: 18px; line-height: 1.15; }
+.livelli tbody th .n { display: block; margin-bottom: 8px; }
+.livelli td.dopo { width: 15%; font-weight: 700; }
+.livelli td.salto { width: 22%; background: #FBF3D3; }
+
+.formula { display: grid; grid-template-columns: auto auto 1fr auto 1fr auto 1fr; gap: 0 14px; align-items: stretch; border: var(--filo); background: var(--carta-chiara); margin: 26px 0 22px; }
+.formula > div { padding: 14px 16px; }
+.formula .ris { background: var(--ink); color: var(--carta); font-weight: 900; display: flex; align-items: center; }
+.formula .op { display: flex; align-items: center; font-weight: 900; font-size: 22px; padding: 0; }
+.formula strong { display: block; font-weight: 900; font-size: 18px; }
+.formula small { display: block; font-size: 14px; color: var(--nota); margin-top: 2px; }
+
+.modello .corpo { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: 32px; align-items: start; }
+.modello label { display: block; font-size: 14px; color: var(--nota); margin-bottom: 12px; }
+.modello input[type=number] { width: 100%; margin-top: 4px; font: inherit; font-weight: 700; color: var(--ink); background: var(--carta); border: var(--filo); border-radius: 0; padding: 8px 10px; }
+.modello input[type=range] { width: 100%; margin: 10px 0 2px; accent-color: var(--ink); }
+.modello .cursore b { color: var(--ink); font-size: 17px; }
+.modello details { margin-top: 6px; border-top: var(--filo); padding-top: 12px; }
+.modello summary { cursor: pointer; font-weight: 700; font-size: 15px; margin-bottom: 12px; }
+.modello .ipotesi { display: grid; grid-template-columns: 1fr 1fr; gap: 0 12px; }
+.grafico svg { width: 100%; height: auto; display: block; }
+.legenda { display: flex; gap: 20px; flex-wrap: wrap; font-size: 14px; color: var(--nota); margin: 8px 0 14px; }
+.legenda i { display: inline-block; width: 12px; height: 12px; margin-right: 6px; vertical-align: -1px; }
+.letture { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border: var(--filo); }
+.letture div { padding: 12px 14px; border-right: var(--filo); }
+.letture div:last-child { border-right: 0; background: var(--giallo); }
+.letture dt { font-size: 14px; }
+.letture dd { margin: 8px 0 0; }
+.fonte { font-size: 14px; color: var(--nota); max-width: 62em; margin: 14px 0 0; }
+
+.chi { display: flex; gap: 0; margin: 4px 0 14px; }
+.chi button { flex: 1; font: inherit; font-weight: 700; font-size: 15px; color: var(--ink); background: var(--carta); border: var(--filo); padding: 8px 10px; cursor: pointer; }
+.chi button + button { border-left: 0; }
+.chi button[aria-pressed="true"] { background: var(--ink); color: var(--carta); }
+.conti { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.conto { border: var(--filo); }
+.conto h3 { margin: 0; padding: 10px 14px; border-bottom: var(--filo); font-size: 18px; }
+body[data-lato="vendor"] .conto.vendor h3, body[data-lato="partner"] .conto.partner h3 { background: var(--giallo); }
+.conto dl { margin: 0; }
+.conto dl div { display: flex; justify-content: space-between; gap: 12px; padding: 8px 14px; border-bottom: 1px solid rgba(21,17,13,.18); font-size: 15.5px; }
+.conto dl div.tot { font-weight: 900; border-bottom: 0; }
+.conto dd { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.conto p { margin: 0; padding: 12px 14px; border-top: var(--filo); font-size: 15.5px; }
+.patti { display: grid; grid-template-columns: 1fr 1fr 1.15fr; gap: 36px; margin-top: 34px; }
+.patti ul, .patti ol { margin: 0; padding-left: 20px; }
+.patti li { margin-bottom: 7px; }
+.piano tbody th { width: 15%; font-size: 16px; }
+.piano td.obiettivo { width: 30%; background: #FBF3D3; font-weight: 700; }
+.spinta { margin-top: 44px; }
+.coda { height: 72px; }
+
+.alto { position: sticky; top: 0; z-index: 10; background: var(--carta); }
+.pista { position: relative; height: 66px; border-bottom: var(--filo); background: var(--carta-chiara); overflow: hidden; }
+.pista .tacca { position: absolute; bottom: 0; width: 6px; height: 12px; background: var(--ink); }
+.pista .tacca.passata { background: var(--giallo); outline: 2px solid var(--ink); outline-offset: -2px; }
+.pista .corridore { position: absolute; bottom: 3px; left: 0; line-height: 0; }
+.hud { display: flex; align-items: center; gap: 12px; }
+main section { scroll-margin-top: 120px; }
+.sprite { display: inline-block; line-height: 0; flex: none; }
+.sprite.specchio svg { transform: scaleX(-1); }
+.guida { display: flex; align-items: flex-end; gap: 16px; margin: 4px 0 26px; }
+.guida .sprite svg, .lato .sprite svg { max-width: 100%; height: auto; }
+.guida .coppia { display: flex; align-items: flex-end; gap: 4px; }
+.fumetto { position: relative; border: var(--filo); background: var(--carta-chiara); padding: 10px 14px; font-size: 16px; max-width: 31em; margin-bottom: 14px; }
+.fumetto::before { content: ''; position: absolute; left: -10px; bottom: 10px; width: 8px; height: 8px; background: var(--ink); }
+.fumetto::after { content: ''; position: absolute; left: -18px; bottom: 4px; width: 6px; height: 6px; background: var(--ink); }
+.fumetto b { font-weight: 900; }
+.missione { display: grid; grid-template-columns: auto 1fr auto; gap: 16px; align-items: center; border: var(--filo); border-bottom: 0; background: var(--carta); padding: 11px 14px; margin-top: 26px; }
+.missione + .finestra { margin-top: 0; }
+.missione .cosa { font-weight: 700; }
+.missione .esito { font-weight: 900; white-space: nowrap; }
+.missione.fatta { background: var(--giallo); }
+.corso .corpo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 36px; align-items: start; }
+.corso h3 { font-size: 26px; line-height: 1.08; margin: 0 0 8px; }
+.corso .orig { font-size: 15px; color: var(--nota); margin: 0 0 16px; }
+.corso .fatti { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: var(--filo); margin: 0 0 16px; }
+.corso .fatti div { padding: 10px 12px; border-right: var(--filo); }
+.corso .fatti div:last-child { border-right: 0; }
+.corso .fatti dt { font-size: 14px; color: var(--nota); }
+.corso .fatti dd { margin: 6px 0 0; font-weight: 900; }
+.corso ol { margin: 0; padding: 0; list-style: none; border: var(--filo); }
+.corso ol li { display: grid; grid-template-columns: 44px 1fr; align-items: center; padding: 9px 12px; border-bottom: 1px solid rgba(21,17,13,.18); font-size: 15.5px; }
+.corso ol li:last-child { border-bottom: 0; background: #FBF3D3; }
+.corso .apri { display: inline-block; font-weight: 900; color: var(--ink); background: var(--giallo); border: var(--filo); padding: 10px 16px; text-decoration: none; }
+.finale { padding-bottom: 8px; }
+.finale .guida { align-items: center; }
+.finale .fumetto { font-size: 19px; max-width: 34em; }
+.lato button { grid-template-columns: minmax(0, 1fr); gap: 8px; justify-items: start; padding: 12px 16px 14px; }
+
+.mappa { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 28px; border: var(--filo); background: var(--carta-chiara); }
+.mappa article { position: relative; padding: 18px 18px 16px; border-right: var(--filo); }
+.mappa article:last-child { border-right: 0; }
+.mappa article:not(:last-child)::after { content: ''; position: absolute; right: -11px; top: 30px; width: 20px; height: 8px; background: var(--ink); z-index: 1; }
+.mappa .fig { height: 64px; display: flex; align-items: flex-end; margin-bottom: 10px; }
+.mappa p { margin: 0 0 10px; font-size: 15.5px; }
+.mappa .segno { font-weight: 900; background: var(--giallo); padding: 6px 8px; font-size: 15px; }
+.mappa .vuoto { font-size: 14px; color: var(--nota); border-top: 1px solid rgba(21,17,13,.25); padding-top: 8px; }
+.arcade { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin-top: 28px; }
+.arcade .finestra .corpo { display: block; }
+.arcade .campi2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 14px; }
+.arcade .esiti { margin-top: 6px; }
+.arcade .esiti dd { font-weight: 900; font-variant-numeric: tabular-nums; }
+.arcade p.dice { margin: 12px 0 0; padding: 10px 12px; background: var(--giallo); font-weight: 700; }
+.arcade textarea { width: 100%; min-height: 96px; font: inherit; color: var(--ink); background: var(--carta); border: var(--filo); border-radius: 0; padding: 10px; resize: vertical; }
+.arcade .trovate { margin: 12px 0 0; padding: 0; list-style: none; }
+.arcade .trovate li { padding: 7px 0; border-bottom: 1px solid rgba(21,17,13,.18); font-size: 15.5px; }
+.arcade .trovate b { font-weight: 900; background: #FBF3D3; padding: 0 4px; }
+.arcade .larga { grid-column: 1 / -1; }
+.note { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 28px; border: var(--filo); background: var(--carta-chiara); }
+.note article { padding: 18px; border-right: var(--filo); border-bottom: var(--filo); }
+.note article:nth-child(4n) { border-right: 0; }
+.note article:nth-last-child(-n+4) { border-bottom: 0; }
+.note h3 { font-size: 18px; margin: 10px 0 8px; }
+.note p { margin: 0; font-size: 15.5px; }
+.con { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+.con .finestra .corpo { padding: 0; }
+.con ul { list-style: none; margin: 0; padding: 0; }
+.con li { padding: 13px 18px; border-bottom: 1px solid rgba(21,17,13,.18); }
+.con li:last-child { border-bottom: 0; }
+.con li strong { display: block; font-weight: 900; font-size: 19px; }
+.con li span { font-size: 15px; color: var(--nota); }
+.con .capo { display: flex; align-items: flex-end; gap: 14px; padding: 12px 18px 10px; border-bottom: var(--filo); font-weight: 900; }
+.eco { margin-top: 24px; }
+.eco table { width: 100%; border-collapse: collapse; }
+.eco th, .eco td { text-align: left; padding: 11px 18px; border-bottom: 1px solid rgba(21,17,13,.18); vertical-align: top; }
+.eco tr:last-child th, .eco tr:last-child td { border-bottom: 0; }
+.eco th { width: 30%; font-weight: 400; color: var(--nota); font-size: 15px; }
+.eco td { font-weight: 700; }
+.chi-sono { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .75fr); gap: 48px; margin-top: 8px; }
+.chi-sono p { margin: 0 0 14px; font-size: 18px; max-width: 36em; }
+.chi-sono .ciao { border: var(--filo); background: var(--carta-chiara); padding: 18px; }
+.chi-sono .ciao p { font-size: 16px; }
+.chi-sono .ciao a { font-weight: 900; }
+.piede { border-top: var(--filo); padding: 18px 48px 26px; font-size: 14px; color: var(--nota); display: flex; gap: 8px 24px; flex-wrap: wrap; justify-content: space-between; }
+.piede a { color: var(--ink); }
+
+@media (max-width: 900px) {
+  .testata { padding: 14px 20px; }
+  .testata nav { display: none; }
+  .start { grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 36px 20px 28px; }
+  .riga { font-size: 18px; margin-bottom: 28px; }
+  .fascia { padding: 0 20px 40px; }
+  .blocco { padding: 52px 20px 0; }
+  .missione { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .mappa, .arcade, .con, .chi-sono { grid-template-columns: minmax(0, 1fr); }
+  .mappa article { border-right: 0; border-bottom: var(--filo); }
+  .mappa article:last-child { border-bottom: 0; }
+  .mappa article:not(:last-child)::after { right: auto; left: 30px; top: auto; bottom: -11px; width: 8px; height: 20px; }
+  .note { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .note article, .note article:nth-child(4n), .note article:nth-last-child(-n+4) { border-right: var(--filo); border-bottom: var(--filo); }
+  .note article:nth-child(2n) { border-right: 0; }
+  .note article:nth-last-child(-n+2) { border-bottom: 0; }
+  .piede { padding: 16px 20px 24px; }
+  .corso .corpo { grid-template-columns: minmax(0, 1fr); }
+  .guida { flex-wrap: wrap; align-items: flex-end; }
+  .fumetto::before, .fumetto::after { display: none; }
+  .guida .coppia .sprite { width: 45%; }
+  .finale .guida .sprite { width: 60%; }
+  .domande { grid-template-columns: minmax(0, 1fr); }
+  .domande article { border-right: 0; border-bottom: var(--filo); }
+  .domande article:last-child { border-bottom: 0; }
+  .modello .corpo { grid-template-columns: minmax(0, 1fr); }
+  .patti { grid-template-columns: minmax(0, 1fr); gap: 26px; }
+  .formula { grid-template-columns: minmax(0, 1fr); }
+  .formula .op { padding: 0 16px; }
+  .livelli table, .livelli tbody, .livelli tr, .livelli th, .livelli td { display: block; width: auto; }
+  .livelli thead { display: none; }
+  .livelli tbody tr { border-bottom: var(--filo); padding: 8px 0; }
+  .livelli tbody tr:last-child { border-bottom: 0; }
+  .livelli th, .livelli td, .livelli td.dopo, .livelli td.salto, .livelli tbody th { width: auto; border: 0; padding: 6px 16px; }
+  .livelli td::before { content: attr(data-t); display: block; font-size: 13.5px; color: var(--nota); font-weight: 400; }
+}
+@media (max-width: 560px) {
+  .lato .scelte { grid-template-columns: 1fr; }
+  .pipeline .corpo { grid-template-columns: minmax(0, 1fr); }
+  .calcolatrice { order: -1; }
+  .calcolatrice svg { width: 112px; }
+  .tabellone table, .tabellone tbody, .tabellone tr, .tabellone th, .tabellone td { display: block; width: auto; }
+  .tabellone tr { padding: 12px 16px; border-bottom: 1px solid rgba(21,17,13,.18); }
+  .tabellone tr:last-child { border-bottom: 0; }
+  .tabellone th, .tabellone td { padding: 2px 0; border: 0; }
+  .tabellone td.valore { width: auto; }
+  .conti { grid-template-columns: minmax(0, 1fr); }
+  .note { grid-template-columns: minmax(0, 1fr); }
+  .note article, .note article:nth-child(2n), .note article:nth-last-child(-n+2) { border-right: 0; border-bottom: var(--filo); }
+  .note article:last-child { border-bottom: 0; }
+  .arcade .campi2 { grid-template-columns: minmax(0, 1fr); }
+  .letture { grid-template-columns: minmax(0, 1fr); }
+  .letture div { border-right: 0; border-bottom: var(--filo); }
+  .letture div:last-child { border-bottom: 0; }
+  .modello .ipotesi { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="alto">
+<header class="testata">
+  <a class="nome" href="#start">Lorenzo Asuni</a>
+  <nav aria-label="Sections">
+    <a href="#why">Why cyber</a>
+    <a href="#levels">Five levels</a>
+    <a href="#mix">Brand and leads</a>
+    <a href="#channel">Vendor and partner</a>
+    <a href="#arcade">Arcade</a>
+    <a href="#notes">Field notes</a>
+    <a href="#about">About</a>
+  </nav>
+  <div class="hud"><span class="px" id="hud-m" data-s="2"></span><a class="lingua" href="https://lorenzoasuni.com" lang="it">Italiano</a></div>
+</header>
+<div class="pista" aria-hidden="true"><span class="corridore sprite" data-sprite="rex" data-tinta="legacy" data-w="96"></span></div>
+</div>
+
+<main>
+  <section class="start" id="start">
+    <div>
+      <h1>Cybersecurity go-to-market, with the maths done.</h1>
+      <p class="riga">GTM, marketing, brand and RevOps for security vendors and the partners who sell them. In the sector since 2021, on both sides of the channel.</p>
+
+      <p class="guida"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="288" aria-hidden="true"></span><span class="fumetto">Hi, I am <b>Legacy</b>. I have sold security the same way since the first firewall. My arms are too short for a calculator, so Lorenzo is teaching me to count. Pick a player, then scroll: there are four missions on this page.</span></p>
+
+      <fieldset class="lato">
+        <legend>Choose your player</legend>
+        <div class="scelte">
+          <button type="button" data-lato="vendor" aria-pressed="false">
+            <span class="sprite" data-sprite="stego" data-tinta="vendor" data-w="192" aria-hidden="true"></span>
+            <span><strong>I build the product</strong><small>Vendors, from post-seed to Series B</small><small class="scheda">Strong: the product. Weak spot: a claim five competitors share.</small></span>
+          </button>
+          <button type="button" data-lato="partner" aria-pressed="false">
+            <span class="sprite" data-sprite="trice" data-tinta="partner" data-w="192" aria-hidden="true"></span>
+            <span><strong>I sell and run it</strong><small>MSSPs, system integrators, resellers</small><small class="scheda">Strong: the customer's trust. Weak spot: ten vendors under one name.</small></span>
+          </button>
+        </div>
+        <p class="conferma" aria-live="polite"></p>
+      </fieldset>
+    </div>
+
+    <section class="finestra pipeline" aria-labelledby="t-pipeline">
+      <header><span class="px" data-t="PIPELINE RUN" data-s="2" id="t-pipeline"></span><i aria-hidden="true"></i></header>
+      <div class="corpo">
+        <div>
+          <div class="campi">
+            <label>New ARR target this year, €<input id="f-target" type="number" inputmode="numeric" min="0" step="10000" value="1200000"></label>
+            <label>Average deal, €<input id="f-deal" type="number" inputmode="numeric" min="0" step="1000" value="40000"></label>
+            <label>Win rate, %<input id="f-win" type="number" inputmode="numeric" min="1" max="100" step="1" value="25"></label>
+            <label>Sales cycle, months<input id="f-ciclo" type="number" inputmode="numeric" min="1" max="36" step="1" value="6"></label>
+          </div>
+          <dl class="esiti">
+            <div><dt>Deals to win</dt><dd><span class="px" id="o-deals" data-s="3"></span></dd></div>
+            <div><dt>Opportunities to open</dt><dd><span class="px" id="o-opps" data-s="3"></span></dd></div>
+          </dl>
+          <p class="chiusura" id="o-chiusura" aria-live="polite"></p>
+          <p class="rimando">The full version, with closing capacity, is in the Arcade.</p>
+        </div>
+        <div class="calcolatrice" id="calcolatrice" aria-hidden="true"></div>
+      </div>
+    </section>
+  </section>
+
+  <div class="fascia">
+    <section class="finestra tabellone" aria-labelledby="t-record">
+      <header><span class="px" data-t="TRACK RECORD" data-s="2" id="t-record"></span><i aria-hidden="true"></i></header>
+      <table>
+        <tbody>
+          <tr><th scope="row">In cybersecurity since</th><td class="valore"><span class="px" data-t="2021" data-s="3"></span></td><td class="nota">First role: CMO of Ermes Browser Security, 2021 to 2024</td></tr>
+          <tr><th scope="row">Companies</th><td class="valore"><span class="px" data-t="4" data-s="3"></span></td><td class="nota">Vendors: Ermes Browser Security, QuoIntelligence. Service providers: Nais Cybersecurity, AmagisTech</td></tr>
+          <tr><th scope="row">Vendor ecosystems I have built campaigns with</th><td class="valore"><span class="px" data-t="7" data-s="3"></span></td><td class="nota">Google SecOps, Wiz, Okta, Cato Networks, Nozomi Networks, Vanta, Riot</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+
+  <section class="blocco" id="why">
+    <h2>Three questions I get asked about this market.</h2>
+    <p class="guida"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="192" aria-hidden="true"></span><span class="fumetto">I never asked any of them. I was busy at the booth.</span></p>
+    <div class="domande">
+      <article>
+        <h3>Why is security becoming the base layer of every technology?</h3>
+        <p>Every product is now software, connected and, more and more, run by AI agents. Each one needs identity, access rules, logs and proof of compliance before a customer can buy it.</p>
+        <p>European rules made that a condition of sale. NIS2 pushes obligations down the supply chain, DORA does it for finance, the Cyber Resilience Act for any product with digital parts.</p>
+        <p class="punto">Every tech company now sells security, or has to pass through it to sell anything.</p>
+      </article>
+      <article>
+        <h3>Why has it changed so much in a few years?</h3>
+        <p>Three moves at once. The perimeter went to the cloud and to people's homes, so the old products stopped fitting. Ransomware and regulation took the subject to the board and to the insurer. And capital funded a new category, with a new acronym, almost every year.</p>
+        <p>Two things are reshaping it again: platforms are absorbing single products, and AI agents now do the first read of an alert.</p>
+        <p class="punto">There are not enough security people, which is why managed services keep growing.</p>
+      </article>
+      <article>
+        <h3>Why is it so slow to change how it sells?</h3>
+        <p>Founders are engineers who sold to engineers, and for years that was enough. The purchase runs on trust, careful buyers reward the familiar, so everyone copies the market leader.</p>
+        <p>Much of the revenue passes through partners, and many vendors have never spoken to the people who use their product. Customers rarely agree to be named. A six-month cycle hides what works until the budget has gone to the same events as last year.</p>
+        <p class="punto">The slowness is the opening for a company that explains itself plainly and measures its channels.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="blocco" id="levels">
+    <h2>Five levels, played in order.</h2>
+    <p class="guida"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="192" aria-hidden="true"></span><span class="fumetto">I skipped level 1 for twenty years. You can tell from my homepage.</span></p>
+    <p class="intro">Positioning, brand, marketing, go-to-market and RevOps are usually bought as five separate projects. They are one system, and each level sets the limit of the next. This is what each one decides, how long it takes to show in the numbers, and what happens when it is skipped.</p>
+    <div class="finestra livelli">
+      <header><span class="px" data-t="LEVELS" data-s="2"></span><i aria-hidden="true"></i></header>
+      <table>
+        <thead><tr><th scope="col">Level</th><th scope="col">What it decides</th><th scope="col">What it produces</th><th scope="col">Shows in the numbers</th><th scope="col">If you skip it</th></tr></thead>
+        <tbody>
+          <tr><th scope="row"><span class="px n" data-t="1" data-s="3"></span>Positioning</th><td data-t="What it decides">Who you are for, against which alternative, and the one claim you will repeat for two years.</td><td data-t="What it produces">A positioning page, messages by buyer role, a list of what you will not say.</td><td class="dopo" data-t="Shows in the numbers">Within a quarter, in reply rates</td><td class="salto" data-t="If you skip it">Every campaign explains the company from zero, and each lead costs more than the last.</td></tr>
+          <tr><th scope="row"><span class="px n" data-t="2" data-s="3"></span>Brand and communication</th><td data-t="What it decides">Name, voice, look, and where you are present while nobody is buying.</td><td data-t="What it produces">An identity, a press and LinkedIn plan, speaking slots, research the market quotes.</td><td class="dopo" data-t="Shows in the numbers">In two to four quarters, as accounts that already know you</td><td class="salto" data-t="If you skip it">Lead generation reaches its ceiling early. The model below shows where.</td></tr>
+          <tr><th scope="row"><span class="px n" data-t="3" data-s="3"></span>Marketing and lead generation</th><td data-t="What it decides">Which channels, which accounts, how much of the market you work each quarter.</td><td data-t="What it produces">Campaigns, events, outbound and content, each with a target, a full cost and an owner.</td><td class="dopo" data-t="Shows in the numbers">In weeks</td><td class="salto" data-t="If you skip it">Sales lives on referrals and on the founder's network, until both run out.</td></tr>
+          <tr><th scope="row"><span class="px n" data-t="4" data-s="3"></span>Go-to-market</th><td data-t="What it decides">The routes: direct, partners or both. The countries. Who closes, and how many deals each person can carry.</td><td data-t="What it produces">A capacity plan, a partner programme, a co-selling calendar.</td><td class="dopo" data-t="Shows in the numbers">Two to three quarters before a new partner sells alone</td><td class="salto" data-t="If you skip it">Leads arrive where nobody can close them.</td></tr>
+          <tr><th scope="row"><span class="px n" data-t="5" data-s="3"></span>RevOps</th><td data-t="What it decides">Definitions, stages, CRM fields, and what gets read every week.</td><td data-t="What it produces">One set of numbers that marketing, sales and partners accept.</td><td class="dopo" data-t="Shows in the numbers">At once, as visibility</td><td class="salto" data-t="If you skip it">Every level above argues about whose numbers are right.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="blocco" id="mix">
+    <h2>Lead generation has a ceiling. Communication moves it.</h2>
+    <p class="guida"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="192" aria-hidden="true"></span><span class="fumetto">I used to put the whole budget on events. Events have snacks.</span></p>
+    <p class="intro">In any quarter only a small share of your market is buying. Lead generation decides how many of those accounts you reach. Communication decides how many of them answer, because buyers reply to names they already know. Nobody decides how many are in market.</p>
+    <div class="formula" role="group" aria-label="Opportunities equal accounts in market, times coverage, times response">
+      <div class="ris">Opportunities</div>
+      <div class="op" aria-hidden="true">=</div>
+      <div><strong>Accounts in market</strong><small>Set by the market</small></div>
+      <div class="op" aria-hidden="true">×</div>
+      <div><strong>Coverage</strong><small>Bought by lead generation, this quarter</small></div>
+      <div class="op" aria-hidden="true">×</div>
+      <div><strong>Response</strong><small>Built by communication, over quarters</small></div>
+    </div>
+    <p class="intro">This is why moving the communication budget into lead generation works for two quarters and then stops, and why a brand campaign with nobody working the accounts produces nothing. Move the slider.</p>
+
+    <div class="missione" id="mis-1"><span class="px" data-t="MISSION 1" data-s="2"></span><span class="cosa">Find the split that opens the most opportunities in eight quarters.</span><span class="esito" aria-live="polite">Open</span></div>
+    <div class="finestra modello">
+      <header><span class="px" data-t="THE MIX" data-s="2"></span><i aria-hidden="true"></i></header>
+      <div class="corpo">
+        <div>
+          <label>Accounts in your market<input id="m-accounts" type="number" inputmode="numeric" min="1" step="100" value="2000"></label>
+          <label>Marketing budget per quarter, €<input id="m-budget" type="number" inputmode="numeric" min="0" step="5000" value="120000"></label>
+          <label class="cursore">Share to brand and communication: <b id="m-share-v">40%</b><input id="m-share" type="range" min="0" max="100" step="5" value="40"></label>
+          <details>
+            <summary>Assumptions. Change them</summary>
+            <div class="ipotesi">
+              <label>In market per quarter, %<input id="m-inmarket" type="number" min="0" max="100" step="1" value="5"></label>
+              <label>Know you today, %<input id="m-aware" type="number" min="0" max="100" step="1" value="10"></label>
+              <label>Response if they do not know you, %<input id="m-cold" type="number" min="0" max="100" step="1" value="5"></label>
+              <label>Response if they know you, %<input id="m-known" type="number" min="0" max="100" step="1" value="20"></label>
+              <label>Cost to work one account per quarter, €<input id="m-work" type="number" min="1" step="5" value="40"></label>
+              <label>Cost to be remembered by one account, €<input id="m-remember" type="number" min="1" step="10" value="150"></label>
+              <label>Memory lost per quarter, %<input id="m-decay" type="number" min="0" max="100" step="1" value="10"></label>
+            </div>
+          </details>
+        </div>
+        <div>
+          <div class="grafico" id="m-grafico" role="img" aria-label="Opportunities per quarter over eight quarters"></div>
+          <p class="legenda"><span><i style="background:#B9B2A4"></i>Lead generation only</span><span><i style="background:#15110D"></i>Your mix</span><span>Opportunities opened per quarter, eight quarters</span></p>
+          <dl class="letture">
+            <div><dt>Lead generation only, 8 quarters</dt><dd><span class="px" id="m-solo" data-s="3"></span></dd></div>
+            <div><dt>Your mix, 8 quarters</dt><dd><span class="px" id="m-tuo" data-s="3"></span></dd></div>
+            <div><dt>Best mix with these assumptions</dt><dd><span class="px" id="m-best" data-s="3"></span></dd></div>
+          </dl>
+          <p class="fonte" id="m-frase" aria-live="polite"></p>
+        </div>
+      </div>
+    </div>
+    <p class="fonte">A model, not a forecast: it shows the shape of the trade. The 5% in market per quarter comes from the 95:5 rule (John Dawes, Ehrenberg-Bass Institute with the LinkedIn B2B Institute, 2021), which its author calls a rule of thumb to recalculate for each category. Every other value is an example to replace with your own. For comparison, Les Binet and Peter Field's study of B2B campaigns for the same institute (2019) found the most effective budgets near 46% brand and 54% activation.</p>
+  </section>
+
+  <section class="blocco" id="channel">
+    <h2>Vendor and partner: one deal, two ledgers.</h2>
+    <p class="guida"><span class="coppia"><span class="sprite" data-sprite="stego" data-tinta="vendor" data-w="192" aria-hidden="true"></span><span class="sprite specchio" data-sprite="trice" data-tinta="partner" data-w="192" aria-hidden="true"></span></span><span class="fumetto">Green builds the product. Orange sells it and runs it. Same deal, two calculators, two different answers.</span></p>
+    <p class="intro">A vendor looks at a partner and sees reach and a cost of sale. A partner looks at a vendor and sees one component of a service it sells under its own name. Both are right. Channel programmes fail when each side plans with only its own ledger in front of it.</p>
+
+    <div class="missione" id="mis-2"><span class="px" data-t="MISSION 2" data-s="2"></span><span class="cosa">Change the deal until the vendor keeps as much through the partner as selling alone.</span><span class="esito" aria-live="polite">Open</span></div>
+    <div class="finestra modello">
+      <header><span class="px" data-t="ONE DEAL" data-s="2"></span><i aria-hidden="true"></i></header>
+      <div class="corpo">
+        <div>
+          <label>Licence, € per year<input id="l-price" type="number" inputmode="numeric" min="0" step="1000" value="60000"></label>
+          <label>Partner margin on the licence, %<input id="l-margin" type="number" min="0" max="100" step="1" value="25"></label>
+          <label>Partner services sold per € of licence<input id="l-ratio" type="number" min="0" step="0.1" value="0.8"></label>
+          <span style="font-size:14px;color:var(--nota)">Who found the deal</span>
+          <div class="chi" role="group" aria-label="Who found the deal">
+            <button type="button" data-chi="partner" aria-pressed="true">The partner</button>
+            <button type="button" data-chi="vendor" aria-pressed="false">The vendor</button>
+          </div>
+          <details>
+            <summary>Assumptions. Change them</summary>
+            <div class="ipotesi">
+              <label>Extra margin for a registered deal, points<input id="l-reg" type="number" min="0" max="100" step="1" value="5"></label>
+              <label>Partner margin on its services, %<input id="l-smargin" type="number" min="0" max="100" step="1" value="40"></label>
+              <label>Vendor marketing funds, % of the deal<input id="l-mdf" type="number" min="0" max="100" step="1" value="3"></label>
+              <label>Vendor cost to run the channel, %<input id="l-channel" type="number" min="0" max="100" step="1" value="10"></label>
+              <label>Vendor cost to sell direct, %<input id="l-direct" type="number" min="0" max="100" step="1" value="35"></label>
+            </div>
+          </details>
+        </div>
+        <div>
+          <div class="conti">
+            <div class="conto vendor">
+              <h3>The vendor's ledger</h3>
+              <dl>
+                <div><dt>Licence after the partner's margin</dt><dd id="l-v-net"></dd></div>
+                <div><dt>Marketing funds</dt><dd id="l-v-mdf"></dd></div>
+                <div><dt>Channel team</dt><dd id="l-v-ch"></dd></div>
+                <div class="tot"><dt>Kept through the partner</dt><dd id="l-v-via"></dd></div>
+                <div class="tot"><dt>Kept selling direct</dt><dd id="l-v-dir"></dd></div>
+              </dl>
+              <p id="l-v-frase"></p>
+            </div>
+            <div class="conto partner">
+              <h3>The partner's ledger</h3>
+              <dl>
+                <div><dt>Margin on the licence</dt><dd id="l-p-lic"></dd></div>
+                <div><dt>Its own services sold</dt><dd id="l-p-rev"></dd></div>
+                <div><dt>Margin on those services</dt><dd id="l-p-srv"></dd></div>
+                <div class="tot"><dt>Earned on the deal</dt><dd id="l-p-tot"></dd></div>
+              </dl>
+              <p id="l-p-frase"></p>
+            </div>
+          </div>
+          <p class="fonte">Every value is an example to replace with your own. The ledgers cover the first year of one deal and leave out renewals.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="patti">
+      <div>
+        <h3>What the vendor needs from the partner</h3>
+        <ul>
+          <li>Accounts it cannot reach alone.</li>
+          <li>People who can install and run the product without a call to support.</li>
+          <li>A forecast it can believe.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>What the partner needs from the vendor</h3>
+        <ul>
+          <li>Leads it is allowed to keep: a deal registration that holds.</li>
+          <li>Funds that come with a plan, and a person to run it with.</li>
+          <li>A product its own service can be built on.</li>
+          <li>A reason to put this vendor first among ten.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Five things to agree before the first joint campaign</h3>
+        <ol>
+          <li>Who owns a lead, and for how many days.</li>
+          <li>Whose name is on the proposal.</li>
+          <li>What the partner must be able to do without the vendor in the room.</li>
+          <li>What the funds pay for, with a target.</li>
+          <li>Which four numbers both sides read every quarter.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="blocco" id="together">
+    <h2>Why the two need each other, and how to speed it up.</h2>
+    <p class="guida"><span class="coppia"><span class="sprite" data-sprite="stego" data-tinta="vendor" data-w="192" aria-hidden="true"></span><span class="sprite specchio" data-sprite="trice" data-tinta="partner" data-w="192" aria-hidden="true"></span></span><span class="fumetto">Alone I am a fossil. With a partner I am a sales team.</span></p>
+    <p class="intro">The vendor has the product and the marketing budget. The partner has the customer and the customer's trust. A mid-size buyer wants one name that answers for the tool and for the people who run it. Neither side can offer that alone: the vendor cannot afford to sell to and support thousands of mid-size accounts, and the partner cannot build the product.</p>
+    <p class="intro">Left alone, the relationship follows a script. A contract is signed, a logo goes on two websites, a few leads are passed and never followed, the marketing funds expire unspent. Two to three quarters go by before the partner closes a deal without the vendor in the room. Working together on purpose shortens that. This is the quarter I run.</p>
+
+    <div class="finestra livelli piano">
+      <header><span class="px" data-t="ONE JOINT QUARTER" data-s="2"></span><i aria-hidden="true"></i></header>
+      <table>
+        <thead><tr><th scope="col">When</th><th scope="col">Activity</th><th scope="col">A goal you can count</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Week 1</th><td data-t="Activity">One page with two logos: what the product and the service do together, and for which buyer.</td><td class="obiettivo" data-t="A goal you can count">One segment, one claim, one owner on each side.</td></tr>
+          <tr><th scope="row">Week 1</th><td data-t="Activity">A shared list of named accounts and a written rule for who owns a lead, and for how long.</td><td class="obiettivo" data-t="A goal you can count">Every account has a first caller. No account has two.</td></tr>
+          <tr><th scope="row">Week 2</th><td data-t="Activity">Enablement: the partner's sellers learn to run the first meeting without the vendor.</td><td class="obiettivo" data-t="A goal you can count">Every seller passes one role-play.</td></tr>
+          <tr><th scope="row">Week 2</th><td data-t="Activity">A request for the vendor's marketing funds, written as a plan: audience, date, expected meetings.</td><td class="obiettivo" data-t="A goal you can count">Approved before the first calling day.</td></tr>
+          <tr><th scope="row">Weeks 3 and 6</th><td data-t="Activity">Call-out days: the vendor's people sit next to the partner's callers and work the shared list together.</td><td class="obiettivo" data-t="A goal you can count">Meetings in the calendar before the day ends.</td></tr>
+          <tr><th scope="row">Weeks 4 to 8</th><td data-t="Activity">One small event by invitation: the partner's customers, the vendor's expert, a subject buyers have to deal with this year.</td><td class="obiettivo" data-t="A goal you can count">A target, a full cost, and follow-up within 24 hours.</td></tr>
+          <tr><th scope="row">Every week</th><td data-t="Activity">Lead generation in both names: a plain guide to one regulation, posts by the people who sell, vendor leads passed with an agreed response time.</td><td class="obiettivo" data-t="A goal you can count">Leads registered, and hours to first contact.</td></tr>
+          <tr><th scope="row">Week 12</th><td data-t="Activity">A review on one page, with both sides in the room.</td><td class="obiettivo" data-t="A goal you can count">Meetings held, opportunities registered, pipeline, deals. Then double it or stop.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="missione" id="mis-3"><span class="px" data-t="MISSION 3" data-s="2"></span><span class="cosa">Open at least 8 opportunities with no more than €6,000 of the partner's own money.</span><span class="esito" aria-live="polite">Open</span></div>
+    <div class="finestra modello">
+      <header><span class="px" data-t="WHAT A JOINT QUARTER OPENS" data-s="2"></span><i aria-hidden="true"></i></header>
+      <div class="corpo">
+        <div>
+          <label>Call-out days in the quarter<input id="j-days" type="number" min="0" step="1" value="2"></label>
+          <label>People calling each day<input id="j-callers" type="number" min="0" step="1" value="4"></label>
+          <label>Events by invitation<input id="j-events" type="number" min="0" step="1" value="1"></label>
+          <label>People invited to each event<input id="j-invited" type="number" min="0" step="5" value="30"></label>
+          <details>
+            <summary>Assumptions. Change them</summary>
+            <div class="ipotesi">
+              <label>Calls per person per day<input id="j-calls" type="number" min="0" step="5" value="40"></label>
+              <label>Calls that reach a person, %<input id="j-reach" type="number" min="0" max="100" step="1" value="15"></label>
+              <label>Conversations that become a meeting, %<input id="j-mpc" type="number" min="0" max="100" step="1" value="20"></label>
+              <label>Invited who attend, %<input id="j-attend" type="number" min="0" max="100" step="5" value="50"></label>
+              <label>Attendees who take a meeting, %<input id="j-mpa" type="number" min="0" max="100" step="5" value="30"></label>
+              <label>Meetings that become an opportunity, %<input id="j-opp" type="number" min="0" max="100" step="5" value="35"></label>
+              <label>Average deal, €<input id="j-deal" type="number" min="0" step="1000" value="60000"></label>
+              <label>Cost of one event, €<input id="j-ecost" type="number" min="0" step="500" value="6000"></label>
+              <label>Cost of one calling day, €<input id="j-dcost" type="number" min="0" step="100" value="1500"></label>
+              <label>Paid by vendor funds, %<input id="j-fund" type="number" min="0" max="100" step="5" value="50"></label>
+            </div>
+          </details>
+        </div>
+        <div>
+          <dl class="letture">
+            <div><dt>Meetings from calling days</dt><dd><span class="px" id="j-mc" data-s="3"></span></dd></div>
+            <div><dt>Meetings from events</dt><dd><span class="px" id="j-me" data-s="3"></span></dd></div>
+            <div><dt>Opportunities opened</dt><dd><span class="px" id="j-o" data-s="3"></span></dd></div>
+          </dl>
+          <div class="conti" style="margin-top:20px">
+            <div class="conto">
+              <h3>What it opens</h3>
+              <dl>
+                <div><dt>Calls made</dt><dd id="j-c"></dd></div>
+                <div><dt>Conversations</dt><dd id="j-cv"></dd></div>
+                <div><dt>People at the events</dt><dd id="j-a"></dd></div>
+                <div class="tot"><dt>Pipeline opened</dt><dd id="j-p"></dd></div>
+              </dl>
+            </div>
+            <div class="conto">
+              <h3>What it costs</h3>
+              <dl>
+                <div><dt>Events and calling days</dt><dd id="j-cost"></dd></div>
+                <div><dt>Paid by vendor funds</dt><dd id="j-funded"></dd></div>
+                <div><dt>Left to the partner</dt><dd id="j-left"></dd></div>
+                <div class="tot"><dt>Cost per opportunity</dt><dd id="j-cpo"></dd></div>
+              </dl>
+            </div>
+          </div>
+          <p class="fonte" id="j-frase" aria-live="polite"></p>
+          <p class="fonte">Every value is an example to replace with your own. The count stops at opportunities opened in the quarter: with a six-month cycle the deals arrive two quarters later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blocco" id="map">
+    <h2>Who sells to whom, and where I have worked.</h2>
+    <p class="intro">A security product reaches its buyer through three or four companies. Each one has a different commercial problem. I have worked inside two of them.</p>
+    <div class="mappa">
+      <article>
+        <div class="fig"><span class="sprite" data-sprite="stego" data-tinta="vendor" data-w="96" aria-hidden="true"></span></div>
+        <h3>Vendor</h3>
+        <p>Builds the product. Usually has a strong technical story and a category where every competitor makes the same claim. Needs pipeline it can attribute, and partners who sell rather than partners who sign and wait.</p>
+        <p class="segno">Ermes Browser Security · QuoIntelligence</p>
+      </article>
+      <article>
+        <div class="fig"><span class="px" data-t="DISTRIBUTOR" data-s="2"></span></div>
+        <h3>Distributor</h3>
+        <p>Holds reach and the vendors' marketing funds. Says yes more easily to a request with an audience, a date and an expected number of meetings.</p>
+        <p class="vuoto">I have worked with distributors from the partner side.</p>
+      </article>
+      <article>
+        <div class="fig"><span class="sprite" data-sprite="trice" data-tinta="partner" data-w="96" aria-hidden="true"></span></div>
+        <h3>MSSP, system integrator, reseller</h3>
+        <p>Sells and runs products from ten vendors under one name. To sell its own managed services it has to become a brand buyers recognise, with its own offer and its own numbers.</p>
+        <p class="segno">Nais Cybersecurity · AmagisTech</p>
+      </article>
+      <article>
+        <div class="fig"><span class="px" data-t="BUYERS" data-s="2"></span></div>
+        <h3>The buying committee</h3>
+        <p>Head of SOC, risk and compliance, CISO, CIO, procurement. In mid-size companies the people who run security and compliance day to day often shape the decision before the person who signs sees it.</p>
+        <p class="vuoto">This is who all the work is for.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="blocco" id="arcade">
+    <h2>Arcade: four more calculators.</h2>
+    <p class="guida"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="192" aria-hidden="true"></span><span class="fumetto">Your numbers stay in your browser. I checked. I cannot reach the send button anyway.</span></p>
+    <p class="intro">Nothing is sent or stored. Every starting value is an example to replace with your own.</p>
+    <div class="arcade">
+      <div class="finestra modello">
+        <header><span class="px" data-t="PIPELINE RUN, FULL" data-s="2"></span><i aria-hidden="true"></i></header>
+        <div class="corpo">
+          <div class="campi2">
+            <label>New ARR target this year, €<input id="p-target" type="number" min="0" step="10000" value="1200000"></label>
+            <label>Average deal, €<input id="p-deal" type="number" min="1" step="1000" value="40000"></label>
+            <label>Win rate, %<input id="p-win" type="number" min="1" max="100" step="1" value="25"></label>
+            <label>Meetings that become an opportunity, %<input id="p-m2o" type="number" min="1" max="100" step="1" value="35"></label>
+            <label>Account executives<input id="p-aes" type="number" min="0" step="1" value="2"></label>
+            <label>Opportunities each can open and work per month<input id="p-per" type="number" min="1" step="1" value="4"></label>
+          </div>
+          <div class="conto"><dl><div><dt>Opportunities to open per month</dt><dd id="p-o"></dd></div><div><dt>Meetings to hold per month</dt><dd id="p-m"></dd></div><div><dt>What your closers can carry per month</dt><dd id="p-c"></dd></div><div class="tot"><dt>Account executives the plan needs</dt><dd id="p-n"></dd></div></dl></div>
+          <p class="dice" id="p-frase" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="finestra modello">
+        <header><span class="px" data-t="EVENT ROI" data-s="2"></span><i aria-hidden="true"></i></header>
+        <div class="corpo">
+          <div class="campi2">
+            <label>Full cost of the event, €<input id="e-cost" type="number" min="0" step="500" value="12000"></label>
+            <label>Meetings you expect from it<input id="e-meet" type="number" min="0" step="1" value="20"></label>
+            <label>Meetings that become an opportunity, %<input id="e-m2o" type="number" min="1" max="100" step="1" value="35"></label>
+            <label>Win rate, %<input id="e-win" type="number" min="1" max="100" step="1" value="25"></label>
+            <label>Average deal, €<input id="e-deal" type="number" min="1" step="1000" value="40000"></label>
+          </div>
+          <div class="conto"><dl><div><dt>Opportunities</dt><dd id="e-o"></dd></div><div><dt>Pipeline opened</dt><dd id="e-p"></dd></div><div><dt>Cost per opportunity</dt><dd id="e-c"></dd></div><div class="tot"><dt>Meetings needed to pay for the event</dt><dd id="e-b"></dd></div></dl></div>
+          <p class="dice" id="e-frase" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div class="finestra modello">
+        <header><span class="px" data-t="DIRECT OR PARTNER" data-s="2"></span><i aria-hidden="true"></i></header>
+        <div class="corpo">
+          <div class="campi2">
+            <label>Deals you close direct, per month<input id="r-d" type="number" min="0" step="1" value="1"></label>
+            <label>Deals partners close once ramped, per month<input id="r-p" type="number" min="0" step="1" value="2"></label>
+            <label>Months before partners sell alone<input id="r-ramp" type="number" min="0" max="36" step="1" value="6"></label>
+            <label>Average deal, €<input id="r-deal" type="number" min="1" step="1000" value="40000"></label>
+            <label>Partner margin, %<input id="r-margin" type="number" min="0" max="100" step="1" value="25"></label>
+            <label>Cost to sell direct, %<input id="r-dc" type="number" min="0" max="100" step="1" value="35"></label>
+            <label>Cost to run the channel, %<input id="r-cc" type="number" min="0" max="100" step="1" value="10"></label>
+          </div>
+          <div class="conto"><dl><div><dt>Kept from direct deals, 12 months</dt><dd id="r-od"></dd></div><div><dt>Kept from partner deals, 12 months</dt><dd id="r-op"></dd></div><div class="tot"><dt>Month the partner route catches up</dt><dd id="r-x"></dd></div></dl></div>
+          <p class="dice" id="r-frase" aria-live="polite"></p>
+        </div>
+      </div>
+
+      <div>
+        <div class="missione" id="mis-4" style="margin-top:0"><span class="px" data-t="MISSION 4" data-s="2"></span><span class="cosa">Write a headline with a number in it and no phrase the whole sector uses.</span><span class="esito" aria-live="polite">Open</span></div>
+        <div class="finestra modello">
+          <header><span class="px" data-t="CLAIM CHECK" data-s="2"></span><i aria-hidden="true"></i></header>
+          <div class="corpo">
+            <label for="c-testo">Paste your homepage headline. It never leaves this page.</label>
+            <textarea id="c-testo">The next-generation, AI-powered platform for end-to-end visibility and real-time protection against the evolving threat landscape.</textarea>
+            <p class="dice" id="c-frase" aria-live="polite"></p>
+            <ul class="trovate" id="c-lista"></ul>
+            <p class="fonte" id="c-domande"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blocco" id="notes">
+    <h2>Field notes.</h2>
+    <p class="guida"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="192" aria-hidden="true"></span><span class="fumetto">Eight rules. I broke all of them before lunch, most years.</span></p>
+    <div class="note">
+      <article><span class="px" data-t="1" data-s="3"></span><h3>Next quarter is already in the CRM.</h3><p>With a six-month cycle, an opportunity opened today closes two quarters from now. To move next quarter, work the pipeline you have.</p></article>
+      <article><span class="px" data-t="2" data-s="3"></span><h3>Count closers before you hire SDRs.</h3><p>Account executives multiplied by the opportunities each can work in a month is the ceiling. Meetings above it lower the win rate.</p></article>
+      <article><span class="px" data-t="3" data-s="3"></span><h3>Give every event a target, a full cost and an owner.</h3><p>Follow-up starts within 24 hours and its owner is chosen before the event.</p></article>
+      <article><span class="px" data-t="4" data-s="3"></span><h3>In Germany, start with the phone.</h3><p>Cold email to businesses generally needs prior consent there, so calls, LinkedIn and events carry more of the work. Check with counsel before buying tools.</p></article>
+      <article><span class="px" data-t="5" data-s="3"></span><h3>Read your claim on a competitor's homepage.</h3><p>If it still fits, it describes the category. Say what you detect, how fast, and for whom.</p></article>
+      <article><span class="px" data-t="6" data-s="3"></span><h3>Ask for vendor funds with a plan.</h3><p>Audience, date, expected meetings. A request with numbers is easier to approve than a request for budget.</p></article>
+      <article><span class="px" data-t="7" data-s="3"></span><h3>Put vendor and partner in the same room for a day.</h3><p>One shared list, the vendor's people next to the partner's callers. It produces meetings and it trains the team.</p></article>
+      <article><span class="px" data-t="8" data-s="3"></span><h3>Write for the person who has to explain it upstairs.</h3><p>Compliance deadlines put security on the agenda of mid-size companies. A plain explanation of the obligation opens more doors than a threat report.</p></article>
+    </div>
+  </section>
+
+  <section class="blocco" id="material">
+    <h2>Material: the course I teach.</h2>
+    <p class="guida"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="192" aria-hidden="true"></span><span class="fumetto">I took it. My password is no longer "dinosaur".</span></p>
+    <div class="finestra corso">
+      <header><span class="px" data-t="COURSE" data-s="2"></span><i aria-hidden="true"></i></header>
+      <div class="corpo">
+        <div>
+          <h3>Cybersecurity: protecting company and personal data</h3>
+          <p class="orig" lang="it">On Learnn, in Italian: "Cybersecurity: proteggere dati aziendali e personali con VPN, firewall e sistemi di sicurezza avanzati"</p>
+          <p>I wrote it for people who are not technical: freelancers, founders of small companies, anyone who signs contracts and holds customer data. It is the same job I do for security companies, done for their buyers: explain the risk in plain words and say what to do on Monday.</p>
+          <p><a class="apri" href="https://learnn.com/">Find it on Learnn</a></p>
+        </div>
+        <div>
+          <p style="margin:0 0 10px;font-weight:700">A preview of the lessons</p>
+          <ol>
+            <li><span class="px" data-t="01" data-s="2"></span>What this course covers</li>
+            <li><span class="px" data-t="02" data-s="2"></span>Web phishing, with a live demo</li>
+            <li><span class="px" data-t="03" data-s="2"></span>Passwords and passphrases</li>
+            <li><span class="px" data-t="04" data-s="2"></span>Browser extensions you can and cannot do without</li>
+            <li><span class="px" data-t="05" data-s="2"></span>Web tracking</li>
+            <li><span class="px" data-t="06" data-s="2"></span>Backup, firewall, proxy and VPN</li>
+            <li><span class="px" data-t="07" data-s="2"></span>How to protect yourself as a freelancer</li>
+            <li><span class="px" data-t="+" data-s="2"></span>More lessons on Learnn</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blocco" id="worked">
+    <h2>Worked with.</h2>
+    <div class="con">
+      <div class="finestra">
+        <header><span class="px" data-t="VENDORS" data-s="2"></span><i aria-hidden="true"></i></header>
+        <div class="corpo">
+          <ul>
+            <li><strong>Ermes Browser Security</strong><span>Browser security. CMO, 2021 to 2024.</span></li>
+            <li><strong>QuoIntelligence</strong><span>Threat intelligence, Frankfurt. Since 2026.</span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="finestra">
+        <header><span class="px" data-t="SERVICE PROVIDERS" data-s="2"></span><i aria-hidden="true"></i></header>
+        <div class="corpo">
+          <ul>
+            <li><strong>Nais Cybersecurity</strong><span>Managed security and SOC, Italy. Fractional CMO, April 2024 to April 2025.</span></li>
+            <li><strong>AmagisTech</strong><span>MSSP and system integrator, Italy. CMO, since 2026.</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="finestra eco">
+      <header><span class="px" data-t="ECOSYSTEM" data-s="2"></span><i aria-hidden="true"></i></header>
+      <table>
+        <tbody>
+          <tr><th scope="row">SecOps and SIEM</th><td>Google SecOps</td></tr>
+          <tr><th scope="row">Cloud security</th><td>Wiz</td></tr>
+          <tr><th scope="row">Identity</th><td>Okta</td></tr>
+          <tr><th scope="row">Network and SASE</th><td>Cato Networks</td></tr>
+          <tr><th scope="row">OT security</th><td>Nozomi Networks</td></tr>
+          <tr><th scope="row">Compliance automation</th><td>Vanta</td></tr>
+          <tr><th scope="row">Security awareness</th><td>Riot</td></tr>
+          <tr><th scope="row">Frameworks I have built content on</th><td>NIS2 · DORA · ISO 27001 · SOC 2 · CRA</td></tr>
+          <tr><th scope="row">Sales stack</th><td>Salesforce · HubSpot · Aircall · Apollo · Gong · Clay</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="fonte">Products and programmes I have built go-to-market and campaigns with, from the vendor side or the partner side. Names only: these are not endorsements.</p>
+  </section>
+
+  <section class="blocco" id="about">
+    <h2>About.</h2>
+    <div class="chi-sono">
+      <div>
+        <p>I am Lorenzo Asuni. I have worked in marketing and sales since 2013 and in cybersecurity since 2021, when I became CMO of Ermes Browser Security. Since 2024 I work with a few companies at a time, for 6 to 12 months each, and the security ones have been on both sides of the channel: two vendors and two service providers.</p>
+        <p>Before security I was at AirHelp, a Y Combinator startup, as country manager for Italy, and I launched Lunii in Italy.</p>
+        <p>I teach a cybersecurity course on Learnn, in Italian, and I invest in tech companies, Huskeys among them.</p>
+        <p>Who this site is not for: I do not run a lead generation agency and I do not do security consulting.</p>
+      </div>
+      <div class="ciao">
+        <h3>Say hello</h3>
+        <p>Write to <a href="mailto:la@lorenzoasuni.com">la@lorenzoasuni.com</a> or find me on <a href="https://www.linkedin.com/in/lorenzo-asuni/">LinkedIn</a>.</p>
+        <p>My main site and my newsletter on company accounts are in Italian: <a href="https://lorenzoasuni.com" lang="it">lorenzoasuni.com</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="blocco finale" id="end">
+    <p class="guida"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="384" aria-hidden="true"></span><span class="fumetto" id="fin-testo" aria-live="polite"></span></p>
+  </section>
+
+  <div class="coda"></div>
+  <div class="scacchi" aria-hidden="true"></div>
+</main>
+<footer class="piede">
+  <span>4AS MILE S.r.l. · Via Renato Prunas 10, 09126 Cagliari, Italy · VAT IT03941490926</span>
+  <span><a href="privacy.html">Privacy</a> · No cookies, no trackers.</span>
+</footer>
+
+<script src="script/cyber_calc.js"></script>
+<script src="script/dinosauri.js"></script>
+<script>
+(function () {
+  'use strict';
+  var fatte = {};
+
+  var G = {
+    'A': '.###./#...#/#...#/#####/#...#/#...#/#...#', 'B': '####./#...#/#...#/####./#...#/#...#/####.',
+    'C': '.###./#...#/#..../#..../#..../#...#/.###.', 'D': '####./#...#/#...#/#...#/#...#/#...#/####.',
+    'E': '#####/#..../#..../####./#..../#..../#####', 'F': '#####/#..../#..../####./#..../#..../#....',
+    'G': '.###./#...#/#..../#.###/#...#/#...#/.###.', 'H': '#...#/#...#/#...#/#####/#...#/#...#/#...#',
+    'I': '.###./..#../..#../..#../..#../..#../.###.', 'J': '..###/...#./...#./...#./...#./#..#./.##..',
+    'K': '#...#/#..#./#.#../##.../#.#../#..#./#...#', 'L': '#..../#..../#..../#..../#..../#..../#####',
+    'M': '#...#/##.##/#.#.#/#.#.#/#...#/#...#/#...#', 'N': '#...#/##..#/#.#.#/#..##/#...#/#...#/#...#',
+    'O': '.###./#...#/#...#/#...#/#...#/#...#/.###.', 'P': '####./#...#/#...#/####./#..../#..../#....',
+    'Q': '.###./#...#/#...#/#...#/#.#.#/#..#./.##.#', 'R': '####./#...#/#...#/####./#.#../#..#./#...#',
+    'S': '.####/#..../#..../.###./....#/....#/####.', 'T': '#####/..#../..#../..#../..#../..#../..#..',
+    'U': '#...#/#...#/#...#/#...#/#...#/#...#/.###.', 'V': '#...#/#...#/#...#/#...#/#...#/.#.#./..#..',
+    'W': '#...#/#...#/#...#/#.#.#/#.#.#/##.##/#...#', 'X': '#...#/#...#/.#.#./..#../.#.#./#...#/#...#',
+    'Y': '#...#/#...#/.#.#./..#../..#../..#../..#..', 'Z': '#####/....#/...#./..#../.#.../#..../#####',
+    '0': '.###./#...#/#..##/#.#.#/##..#/#...#/.###.', '1': '..#../.##../..#../..#../..#../..#../.###.',
+    '2': '.###./#...#/....#/...#./..#../.#.../#####', '3': '####./....#/....#/.###./....#/....#/####.',
+    '4': '...#./..##./.#.#./#..#./#####/...#./...#.', '5': '#####/#..../####./....#/....#/#...#/.###.',
+    '6': '.###./#..../#..../####./#...#/#...#/.###.', '7': '#####/....#/...#./..#../.#.../.#.../.#...',
+    '8': '.###./#...#/#...#/.###./#...#/#...#/.###.', '9': '.###./#...#/#...#/.####/....#/....#/.###.',
+    ',': '...../...../...../...../...../..#../.#...', '.': '...../...../...../...../...../...../.#...',
+    '-': '...../...../...../.###./...../...../.....', '+': '...../..#../..#../#####/..#../..#../.....',
+    '?': '.###./#...#/....#/...#./..#../...../..#..', '%': '##..#/##.#./...#./..#../.#.../.#.##/#..##', '/': '....#/...#./...#./..#../.#.../.#.../#....', ' ': '...../...../...../...../...../...../.....'
+  };
+
+  function rettangoli(testo, x0, y0, u) {
+    var out = '', x = x0;
+    testo.toUpperCase().split('').forEach(function (c) {
+      var righe = (G[c] || G['?']).split('/');
+      righe.forEach(function (riga, r) {
+        var i = 0;
+        while (i < 5) {
+          if (riga[i] === '#') {
+            var j = i;
+            while (j < 5 && riga[j] === '#') j++;
+            out += '<rect x="' + (x + i * u) + '" y="' + (y0 + r * u) + '" width="' + ((j - i) * u) + '" height="' + u + '"/>';
+            i = j;
+          } else { i++; }
+        }
+      });
+      x += (c === ' ' ? 4 : 6) * u;
+    });
+    return { svg: out, larghezza: x - x0 - u };
+  }
+
+  function scriviPx(el, testo) {
+    var s = parseInt(el.getAttribute('data-s') || '2', 10);
+    var r = rettangoli(testo, 0, 0, s);
+    el.setAttribute('role', 'img');
+    el.setAttribute('aria-label', testo);
+    el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="' + Math.max(r.larghezza, s) + '" height="' + (7 * s) +
+      '" viewBox="0 0 ' + Math.max(r.larghezza, s) + ' ' + (7 * s) + '" fill="currentColor" shape-rendering="crispEdges" aria-hidden="true">' + r.svg + '</svg>';
+  }
+
+  document.querySelectorAll('.px[data-t]').forEach(function (el) { scriviPx(el, el.getAttribute('data-t')); });
+
+  var COLORI = { k: '#15110D', y: '#F7C948', w: '#FFFDF6', r: '#E2381C', o: '#F08A2C' };
+  var FISSI = window.DINOSAURI_FISSI || {};
+  var TINTE = window.DINOSAURI_TINTE || {};
+  var FIGURE = window.DINOSAURI || {};
+  document.querySelectorAll('.sprite[data-sprite]').forEach(function (el) {
+    var m = FIGURE[el.getAttribute('data-sprite')], out = '';
+    if (!m) return;
+    var tinta = TINTE[el.getAttribute('data-tinta')] || TINTE.vendor || {};
+    m.forEach(function (riga, y) {
+      var x = 0;
+      while (x < riga.length) {
+        var c = riga[x], f = tinta[c] || FISSI[c];
+        if (!f) { x++; continue; }
+        var j = x;
+        while (j < riga.length && riga[j] === c) j++;
+        out += '<rect x="' + x + '" y="' + y + '" width="' + (j - x) + '" height="1" fill="' + f + '"/>';
+        x = j;
+      }
+    });
+    var w = parseInt(el.getAttribute('data-w') || '192', 10), cols = m[0].length, rows = m.length;
+    el.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="' + w + '" height="' + Math.round(w * rows / cols) + '" viewBox="0 0 ' + cols + ' ' + rows + '" shape-rendering="crispEdges">' + out + '</svg>';
+  });
+
+  var MISSIONI = 4;
+  var FINE = [
+    'Four missions on this page. I have completed none of them in twenty years. You?',
+    'One mission out of four. That is already one more than me.',
+    'Two out of four. You are halfway to a better quarter.',
+    'Three out of four. Careful, you are starting to sound like a CRO.',
+    'Four out of four. You count better than a dinosaur. Lorenzo would like to hear how you did it: la@lorenzoasuni.com, or find him on LinkedIn.'
+  ];
+  function contaFatte() { return Object.keys(fatte).length; }
+  function aggiornaGioco() {
+    var n = contaFatte();
+    var hud = document.getElementById('hud-m');
+    if (hud) scriviPx(hud, 'MISSIONS ' + n + '/' + MISSIONI);
+    var fin = document.getElementById('fin-testo');
+    if (fin) fin.textContent = FINE[n];
+  }
+  function fatta(n) {
+    if (fatte[n]) return;
+    fatte[n] = true;
+    var el = document.getElementById('mis-' + n);
+    if (el) { el.classList.add('fatta'); el.querySelector('.esito').textContent = 'Done'; }
+    aggiornaGioco();
+  }
+  aggiornaGioco();
+
+  function calcolatrice(display) {
+    function q(x, y, w, h, f) { return '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" fill="' + f + '"/>'; }
+    var s = '';
+    s += q(2, 0, 34, 46, COLORI.k) + q(1, 1, 36, 44, COLORI.k) + q(0, 2, 38, 42, COLORI.k);
+    s += q(3, 2, 32, 42, COLORI.y) + q(2, 3, 34, 40, COLORI.y);
+    s += q(4, 4, 30, 13, COLORI.k) + q(5, 5, 28, 11, COLORI.w);
+    var t = rettangoli(display, 0, 0, 1);
+    var t2 = rettangoli(display, 5 + 28 - 2 - t.larghezza, 7, 1);
+    s += '<g fill="' + COLORI.k + '">' + t2.svg + '</g>';
+    for (var r = 0; r < 4; r++) {
+      for (var c = 0; c < 4; c++) {
+        var x = 4 + c * 8, y = 20 + r * 6;
+        var f = c < 3 ? '#F4EFE4' : (r < 3 ? COLORI.o : COLORI.r);
+        s += q(x, y, 6, 5, COLORI.k) + q(x, y, 6, 4, f);
+      }
+    }
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 38 46" shape-rendering="crispEdges">' + s + '</svg>';
+  }
+
+  var mesi = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+  function migliaia(n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+  function conto() {
+    var target = parseFloat(document.getElementById('f-target').value);
+    var deal = parseFloat(document.getElementById('f-deal').value);
+    var win = parseFloat(document.getElementById('f-win').value);
+    var ciclo = parseInt(document.getElementById('f-ciclo').value, 10);
+    var ok = target > 0 && deal > 0 && win > 0 && win <= 100 && ciclo > 0 && ciclo <= 36;
+    var deals = ok ? Math.ceil(target / deal) : null;
+    var opps = ok ? Math.ceil(deals / (win / 100)) : null;
+    scriviPx(document.getElementById('o-deals'), ok ? migliaia(deals) : '?');
+    scriviPx(document.getElementById('o-opps'), ok ? migliaia(opps) : '?');
+    document.getElementById('calcolatrice').innerHTML = calcolatrice(ok ? (opps > 9999 ? '9999' : String(opps)) : '?');
+    var frase = 'Fill in the four fields to see when a new opportunity can close.';
+    if (ok) {
+      var d = new Date();
+      d.setDate(1);
+      d.setMonth(d.getMonth() + ciclo);
+      frase = 'An opportunity opened today closes around ' + mesi[d.getMonth()] + ' ' + d.getFullYear() + '.';
+    }
+    document.getElementById('o-chiusura').textContent = frase;
+  }
+  ['f-target', 'f-deal', 'f-win', 'f-ciclo'].forEach(function (id) { document.getElementById(id).addEventListener('input', conto); });
+  conto();
+
+  var FRASI = {
+    vendor: 'Vendor view. The page now starts from pipeline and positioning.',
+    partner: 'Partner view. The page now starts from your own brand and the vendors behind it.'
+  };
+  function scegli(lato) {
+    if (!FRASI[lato]) return;
+    document.body.setAttribute('data-lato', lato);
+    document.querySelectorAll('.lato button').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-lato') === lato ? 'true' : 'false');
+    });
+    document.querySelector('.conferma').textContent = FRASI[lato];
+  }
+  document.querySelectorAll('.lato button').forEach(function (b) {
+    b.addEventListener('click', function () { scegli(b.getAttribute('data-lato')); });
+  });
+
+  function num(id) { return parseFloat(document.getElementById(id).value); }
+  function euro(n) { return (n < 0 ? '-' : '') + '€' + migliaia(Math.round(Math.abs(n))); }
+  function grafico(solo, tuo) {
+    var W = 336, H = 150, base = 124, max = 0.0001, s = '';
+    solo.concat(tuo).forEach(function (r) { if (r.opps > max) max = r.opps; });
+    s += '<rect x="0" y="' + base + '" width="' + W + '" height="2" fill="#15110D"/>';
+    for (var i = 0; i < 8; i++) {
+      var x = 6 + i * 42;
+      var h1 = Math.round(solo[i].opps / max * 96), h2 = Math.round(tuo[i].opps / max * 96);
+      s += '<rect x="' + x + '" y="' + (base - h1) + '" width="14" height="' + h1 + '" fill="#B9B2A4"/>';
+      s += '<rect x="' + (x + 16) + '" y="' + (base - h2) + '" width="14" height="' + h2 + '" fill="#15110D"/>';
+      var v = rettangoli(String(Math.round(tuo[i].opps)), 0, 0, 1);
+      s += '<g fill="#15110D">' + rettangoli(String(Math.round(tuo[i].opps)), x + 16 + Math.max(0, Math.round((14 - v.larghezza) / 2)) - (v.larghezza > 14 ? Math.round((v.larghezza - 14) / 2) : 0), base - h2 - 10, 1).svg + '</g>';
+      s += '<g fill="#5E574C">' + rettangoli('Q' + (i + 1), x + 9, base + 8, 1).svg + '</g>';
+    }
+    return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" shape-rendering="crispEdges" aria-hidden="true">' + s + '</svg>';
+  }
+  function mixConto() {
+    var p = {
+      accounts: num('m-accounts'), budget: num('m-budget'), brandShare: num('m-share') / 100,
+      inMarket: num('m-inmarket') / 100, respCold: num('m-cold') / 100, respKnown: num('m-known') / 100,
+      costWork: num('m-work'), costRemember: num('m-remember'), decay: num('m-decay') / 100, aware0: num('m-aware') / 100, quarters: 8
+    };
+    document.getElementById('m-share-v').textContent = Math.round(p.brandShare * 100) + '%';
+    var ok = Object.keys(p).every(function (k) { return isFinite(p[k]) && p[k] >= 0; }) && p.accounts > 0 && p.costWork > 0 && p.costRemember > 0;
+    if (!ok) {
+      ['m-solo', 'm-tuo', 'm-best'].forEach(function (id) { scriviPx(document.getElementById(id), '?'); });
+      document.getElementById('m-frase').textContent = 'Fill in every field to run the model.';
+      return;
+    }
+    var soloP = {}; for (var k in p) soloP[k] = p[k]; soloP.brandShare = 0;
+    var solo = CyberCalc.mix(soloP), tuo = CyberCalc.mix(p), best = CyberCalc.bestMix(p);
+    document.getElementById('m-grafico').innerHTML = grafico(solo.rows, tuo.rows);
+    scriviPx(document.getElementById('m-solo'), String(Math.round(solo.total)));
+    scriviPx(document.getElementById('m-tuo'), String(Math.round(tuo.total)));
+    scriviPx(document.getElementById('m-best'), best.share + '%');
+    if (Math.round(p.brandShare * 100) === best.share) fatta(1);
+    var f;
+    if (p.brandShare === 0) f = 'With nothing in communication, fewer accounts remember you each quarter and the same lead generation opens fewer opportunities.';
+    else if (tuo.coverage === 0) f = 'With everything in communication, nobody works the accounts: the market knows you and no opportunity is opened.';
+    else {
+      var q1 = tuo.rows[0].opps - solo.rows[0].opps, q8 = tuo.rows[7].opps - solo.rows[7].opps;
+      f = 'In the first quarter your mix opens ' + Math.abs(q1).toFixed(1) + (q1 < 0 ? ' fewer' : ' more') + ' opportunities than lead generation alone. In the eighth it opens ' +
+          Math.abs(q8).toFixed(1) + (q8 < 0 ? ' fewer' : ' more') + '. You work ' + Math.round(tuo.coverage * 100) + '% of the market each quarter.';
+    }
+    document.getElementById('m-frase').textContent = f;
+  }
+  ['m-accounts', 'm-budget', 'm-share', 'm-inmarket', 'm-aware', 'm-cold', 'm-known', 'm-work', 'm-remember', 'm-decay'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', mixConto);
+  });
+  mixConto();
+
+  var chi = 'partner';
+  function contoCanale() {
+    var p = {
+      price: num('l-price'), partnerMargin: num('l-margin') / 100, regBonus: num('l-reg') / 100, partnerSourced: chi === 'partner',
+      servicesRatio: num('l-ratio'), servicesMargin: num('l-smargin') / 100, mdf: num('l-mdf') / 100,
+      directCost: num('l-direct') / 100, channelCost: num('l-channel') / 100
+    };
+    var ok = ['price', 'partnerMargin', 'regBonus', 'servicesRatio', 'servicesMargin', 'mdf', 'directCost', 'channelCost'].every(function (k) { return isFinite(p[k]) && p[k] >= 0; });
+    var ids = ['l-v-net', 'l-v-mdf', 'l-v-ch', 'l-v-via', 'l-v-dir', 'l-p-lic', 'l-p-rev', 'l-p-srv', 'l-p-tot'];
+    if (!ok) {
+      ids.forEach(function (id) { document.getElementById(id).textContent = '?'; });
+      document.getElementById('l-v-frase').textContent = 'Fill in every field to read the two ledgers.';
+      document.getElementById('l-p-frase').textContent = '';
+      return;
+    }
+    var r = CyberCalc.ledger(p);
+    if (r.vendor.viaPartner >= r.vendor.direct) fatta(2);
+    var val = [euro(r.vendor.net), euro(-r.vendor.mdf), euro(-r.vendor.channel), euro(r.vendor.viaPartner), euro(r.vendor.direct),
+               euro(r.partner.licence), euro(r.partner.servicesRevenue), euro(r.partner.services), euro(r.partner.total)];
+    ids.forEach(function (id, i) { document.getElementById(id).textContent = val[i]; });
+    document.getElementById('l-v-frase').textContent = r.vendor.gap >= 0
+      ? 'Through the partner the vendor keeps ' + euro(r.vendor.viaPartner) + ' of this deal, against ' + euro(r.vendor.direct) + ' selling it alone. The ' + euro(r.vendor.gap) + ' between them is the price of a deal it would not have found' + (chi === 'vendor' ? ', and here the vendor found it.' : '.')
+      : 'Through the partner the vendor keeps ' + euro(r.vendor.viaPartner) + ', more than the ' + euro(r.vendor.direct) + ' it keeps selling alone.';
+    document.getElementById('l-p-frase').textContent = 'The partner earns ' + euro(r.partner.licence) + ' on the licence and ' + euro(r.partner.services) + ' on its own service. ' +
+      Math.round(r.partner.servicesShare * 100) + '% of its profit comes from the service: that is what it protects, and what the vendor\'s programme should help it sell.';
+  }
+  ['l-price', 'l-margin', 'l-ratio', 'l-reg', 'l-smargin', 'l-mdf', 'l-channel', 'l-direct'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', contoCanale);
+  });
+  document.querySelectorAll('.chi button').forEach(function (b) {
+    b.addEventListener('click', function () {
+      chi = b.getAttribute('data-chi');
+      document.querySelectorAll('.chi button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      contoCanale();
+    });
+  });
+  contoCanale();
+
+  function trimestre() {
+    var p = {
+      days: num('j-days'), callers: num('j-callers'), callsPerCaller: num('j-calls'), reachRate: num('j-reach') / 100,
+      meetingPerConversation: num('j-mpc') / 100, events: num('j-events'), invited: num('j-invited'), attendRate: num('j-attend') / 100,
+      meetingPerAttendee: num('j-mpa') / 100, oppRate: num('j-opp') / 100, deal: num('j-deal'), eventCost: num('j-ecost'),
+      dayCost: num('j-dcost'), fundShare: num('j-fund') / 100
+    };
+    var ok = Object.keys(p).every(function (k) { return isFinite(p[k]) && p[k] >= 0; });
+    var testo = ['j-c', 'j-cv', 'j-a', 'j-p', 'j-cost', 'j-funded', 'j-left', 'j-cpo'];
+    if (!ok) {
+      ['j-mc', 'j-me', 'j-o'].forEach(function (id) { scriviPx(document.getElementById(id), '?'); });
+      testo.forEach(function (id) { document.getElementById(id).textContent = '?'; });
+      document.getElementById('j-frase').textContent = 'Fill in every field to count the quarter.';
+      return;
+    }
+    var r = CyberCalc.jointQuarter(p);
+    if (r.opps >= 8 && r.partnerCost <= 6000) fatta(3);
+    scriviPx(document.getElementById('j-mc'), r.meetingsCalls.toFixed(1));
+    scriviPx(document.getElementById('j-me'), r.meetingsEvents.toFixed(1));
+    scriviPx(document.getElementById('j-o'), r.opps.toFixed(1));
+    var val = [migliaia(Math.round(r.calls)), migliaia(Math.round(r.conversations)), migliaia(Math.round(r.attendees)), euro(r.pipeline),
+               euro(r.cost), euro(-r.funded), euro(r.partnerCost), r.costPerOpp === null ? 'none opened' : euro(r.costPerOpp)];
+    testo.forEach(function (id, i) { document.getElementById(id).textContent = val[i]; });
+    document.getElementById('j-frase').textContent = r.opps > 0
+      ? 'Two companies, ' + migliaia(Math.round(r.meetings)) + ' meetings and about ' + r.opps.toFixed(1) + ' opportunities in one quarter, for ' + euro(r.partnerCost) + ' of the partner\'s own money. ' +
+        (r.meetingsCalls >= r.meetingsEvents ? 'Most meetings come from the calling days.' : 'Most meetings come from the events.')
+      : 'With no calling days and no events, the quarter opens nothing: the contract is signed and the script above begins.';
+  }
+  ['j-days', 'j-callers', 'j-events', 'j-invited', 'j-calls', 'j-reach', 'j-mpc', 'j-attend', 'j-mpa', 'j-opp', 'j-deal', 'j-ecost', 'j-dcost', 'j-fund'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', trimestre);
+  });
+  trimestre();
+
+  function uno(n) { return (Math.round(n * 10) / 10).toFixed(1).replace(/\.0$/, ''); }
+  function scrivi(id, t) { document.getElementById(id).textContent = t; }
+  function tutti(o) { return Object.keys(o).every(function (k) { return isFinite(o[k]) && o[k] >= 0; }); }
+
+  function arcadePipeline() {
+    var p = { target: num('p-target'), deal: num('p-deal'), win: num('p-win') / 100, aes: num('p-aes'), oppsPerAe: num('p-per'), meetToOpp: num('p-m2o') / 100 };
+    if (!tutti(p) || !(p.deal > 0 && p.win > 0 && p.oppsPerAe > 0 && p.meetToOpp > 0)) { ['p-o', 'p-m', 'p-c', 'p-n'].forEach(function (id) { scrivi(id, '?'); }); scrivi('p-frase', 'Fill in every field.'); return; }
+    var r = CyberCalc.pipelineRun(p);
+    scrivi('p-o', uno(r.oppsMonth)); scrivi('p-m', uno(r.meetingsMonth)); scrivi('p-c', uno(r.capacity)); scrivi('p-n', String(r.aesNeeded));
+    scrivi('p-frase', r.gap > 0
+      ? 'The plan needs ' + uno(r.oppsMonth) + ' new opportunities a month and your closers can carry ' + uno(r.capacity) + '. More leads will not close the gap: the next hire is an account executive.'
+      : 'Your closers can carry the plan, with room for ' + uno(-r.gap) + ' more opportunities a month. The limit is how many you open.');
+  }
+  function arcadeEvento() {
+    var p = { cost: num('e-cost'), meetings: num('e-meet'), meetToOpp: num('e-m2o') / 100, win: num('e-win') / 100, deal: num('e-deal') };
+    if (!tutti(p)) { ['e-o', 'e-p', 'e-c', 'e-b'].forEach(function (id) { scrivi(id, '?'); }); scrivi('e-frase', 'Fill in every field.'); return; }
+    var r = CyberCalc.eventRoi(p);
+    scrivi('e-o', uno(r.opps)); scrivi('e-p', euro(r.pipeline)); scrivi('e-c', r.costPerOpp === null ? 'none opened' : euro(r.costPerOpp)); scrivi('e-b', r.breakEven === null ? '?' : uno(r.breakEven));
+    scrivi('e-frase', r.breakEven === null ? 'Fill in every field.' : (p.meetings >= r.breakEven
+      ? 'The event pays for itself from meeting ' + Math.ceil(r.breakEven) + '. Write ' + Math.round(p.meetings) + ' meetings down as the target before you book the stand.'
+      : 'At ' + Math.round(p.meetings) + ' meetings the event does not pay for itself. It needs ' + Math.ceil(r.breakEven) + '.'));
+  }
+  function arcadeVie() {
+    var p = { directDeals: num('r-d'), partnerDeals: num('r-p'), ramp: num('r-ramp'), deal: num('r-deal'), partnerMargin: num('r-margin') / 100, directCost: num('r-dc') / 100, channelCost: num('r-cc') / 100, months: 12 };
+    if (!tutti(p)) { ['r-od', 'r-op', 'r-x'].forEach(function (id) { scrivi(id, '?'); }); scrivi('r-frase', 'Fill in every field.'); return; }
+    var r = CyberCalc.routes(p);
+    scrivi('r-od', euro(r.direct)); scrivi('r-op', euro(r.partner)); scrivi('r-x', r.cross === null ? 'not within 3 years' : 'month ' + r.cross);
+    scrivi('r-frase', r.cross === null
+      ? 'With these numbers the partner route never catches up. Either partners close more, or they start sooner.'
+      : 'For the first ' + Math.round(p.ramp) + ' months the partner route brings nothing. It catches up with direct in month ' + r.cross + '. Plan the cash for the months in between.');
+  }
+  ['p-target', 'p-deal', 'p-win', 'p-m2o', 'p-aes', 'p-per'].forEach(function (id) { document.getElementById(id).addEventListener('input', arcadePipeline); });
+  ['e-cost', 'e-meet', 'e-m2o', 'e-win', 'e-deal'].forEach(function (id) { document.getElementById(id).addEventListener('input', arcadeEvento); });
+  ['r-d', 'r-p', 'r-ramp', 'r-deal', 'r-margin', 'r-dc', 'r-cc'].forEach(function (id) { document.getElementById(id).addEventListener('input', arcadeVie); });
+  arcadePipeline(); arcadeEvento(); arcadeVie();
+
+  var elenco = null, toccato = false;
+  function arcadeClaim() {
+    var testo = document.getElementById('c-testo').value;
+    var lista = document.getElementById('c-lista');
+    if (!elenco) { scrivi('c-frase', 'The list of phrases did not load.'); lista.innerHTML = ''; return; }
+    var r = CyberCalc.claimCheck(testo, elenco.gruppi.map(function (g) { return { nome: g.nome, perche: g.perche, formule: g.formule }; }));
+    lista.innerHTML = '';
+    r.found.forEach(function (f) {
+      var li = document.createElement('li'), b = document.createElement('b');
+      b.textContent = f.frase;
+      li.appendChild(b);
+      li.appendChild(document.createTextNode(' ' + (f.n > 1 ? '(' + f.n + ' times) ' : '') + f.perche));
+      lista.appendChild(li);
+    });
+    scrivi('c-frase', r.total === 0
+      ? (testo.trim().length ? 'No phrase from the list. Now check it names what you detect, how fast, and for whom.' : 'Paste a headline.')
+      : r.total + (r.total === 1 ? ' phrase' : ' phrases') + ' that other security homepages use too.');
+    scrivi('c-domande', 'Three questions to rewrite it. ' + elenco.domande.join(' '));
+    if (toccato && r.total === 0 && testo.trim().length >= 40 && /\d/.test(testo)) fatta(4);
+  }
+  document.getElementById('c-testo').addEventListener('input', function () { toccato = true; arcadeClaim(); });
+  fetch('claim-check.json').then(function (x) { return x.json(); }).then(function (j) { elenco = j; arcadeClaim(); }).catch(function () { arcadeClaim(); });
+
+  var pista = document.querySelector('.pista'), corridore = document.querySelector('.corridore');
+  var CAPITOLI = ['start', 'why', 'levels', 'mix', 'channel', 'together', 'map', 'arcade', 'notes', 'material', 'worked', 'about'];
+  function corsa() { return Math.max(1, document.documentElement.scrollHeight - window.innerHeight); }
+  function tacche() {
+    pista.querySelectorAll('.tacca').forEach(function (t) { t.remove(); });
+    CAPITOLI.forEach(function (id) {
+      var el = document.getElementById(id); if (!el) return;
+      var y = el.getBoundingClientRect().top + window.scrollY;
+      var f = Math.min(1, y / corsa());
+      var t = document.createElement('i'); t.className = 'tacca'; t.setAttribute('data-f', f);
+      t.style.left = (f * (pista.clientWidth - 100) + 46) + 'px';
+      pista.appendChild(t);
+    });
+    corri();
+  }
+  function corri() {
+    var f = Math.min(1, window.scrollY / corsa());
+    corridore.style.left = (f * (pista.clientWidth - 100)) + 'px';
+    pista.querySelectorAll('.tacca').forEach(function (t) { t.classList.toggle('passata', parseFloat(t.getAttribute('data-f')) <= f + 0.005); });
+  }
+  window.addEventListener('scroll', corri, { passive: true });
+  window.addEventListener('resize', tacche);
+  window.addEventListener('load', tacche);
+  document.querySelectorAll('details').forEach(function (d) { d.addEventListener('toggle', tacche); });
+  tacche();
+
+  var m = /[?&]side=(vendor|partner)\b/.exec(location.search);
+  if (m) scegli(m[1]);
+})();
+</script>
+</body>
+</html>
