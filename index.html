@@ -150,6 +150,7 @@ body[data-lato="vendor"] .conto.vendor h3, body[data-lato="partner"] .conto.part
 .pista .tacca.passata { background: var(--giallo); outline: 2px solid var(--ink); outline-offset: -2px; }
 .pista .corridore { position: absolute; bottom: 3px; left: 0; line-height: 0; }
 .hud { display: flex; align-items: center; gap: 12px; }
+.hud-l { font-size: 14px; font-weight: 700; margin-right: -4px; }
 main section { scroll-margin-top: 120px; }
 .sprite { display: inline-block; line-height: 0; flex: none; }
 .sprite.specchio svg { transform: scaleX(-1); }
@@ -285,6 +286,71 @@ main section { scroll-margin-top: 120px; }
   .letture div:last-child { border-bottom: 0; }
   .modello .ipotesi { grid-template-columns: minmax(0, 1fr); }
 }
+
+@media (max-width: 900px) {
+  .piano td.obiettivo, .piano tbody th { width: auto; }
+  .livelli tbody th { font-size: 19px; padding-top: 12px; }
+  .livelli tbody th .n { display: inline-block; margin: 0 10px 0 0; vertical-align: -3px; }
+  .livelli td.salto, .piano td.obiettivo { margin: 6px 16px 10px; padding: 10px 12px; }
+  .eco table, .eco tbody, .eco tr, .eco th, .eco td { display: block; width: auto; }
+  .eco tr { border-bottom: 1px solid rgba(21,17,13,.18); padding: 9px 0; }
+  .eco tr:last-child { border-bottom: 0; }
+  .eco th, .eco td { border: 0; padding: 1px 16px; }
+}
+@media (max-width: 700px) {
+  body { font-size: 16px; }
+  .testata { padding: 8px 16px; gap: 10px; }
+  .testata .nome { font-size: 17px; white-space: nowrap; }
+  .hud { gap: 9px; }
+  .hud .lingua { font-size: 14px; }
+  .pista { height: 46px; }
+  .pista .corridore svg { width: 64px; height: auto; }
+  main section { scroll-margin-top: 104px; }
+  .start { padding: 26px 16px 22px; gap: 26px; }
+  h1 { font-size: 37px; margin-bottom: 16px; }
+  .riga { font-size: 17px; margin-bottom: 20px; }
+  .fascia { padding: 0 16px 28px; }
+  .blocco { padding: 42px 16px 0; }
+  .blocco h2 { font-size: 28px; margin-bottom: 14px; }
+  .blocco h3 { font-size: 19px; }
+  .intro { font-size: 16.5px; }
+  .guida { gap: 8px 12px; margin: 2px 0 18px; }
+  .guida .sprite svg { width: 144px; height: auto; }
+  .guida .coppia .sprite { width: auto; }
+  .guida .coppia .sprite svg { width: 132px; }
+  .finale .guida .sprite { width: auto; }
+  .finale .guida .sprite svg { width: 192px; }
+  .fumetto { font-size: 15px; max-width: none; flex: 1 1 100%; margin-bottom: 0; }
+  .finale .fumetto { font-size: 16px; }
+  .lato legend { margin-bottom: 8px; }
+  .lato .sprite svg { width: 144px; height: auto; }
+  .lato button { padding: 10px 14px 12px; }
+  .finestra .corpo { padding: 16px; }
+  .finestra > header { padding: 8px 12px; }
+  .domande { margin-top: 18px; }
+  .domande article { padding: 18px 16px 16px; }
+  .livelli, .mappa, .arcade, .note, .con { margin-top: 18px; }
+  .formula { margin: 18px 0 16px; }
+  .formula > div { padding: 10px 14px; }
+  .formula .op { padding: 0 14px; font-size: 18px; }
+  .missione { padding: 10px 12px; margin-top: 18px; }
+  .conto dl div { padding: 8px 12px; font-size: 15px; }
+  .conto h3 { padding: 9px 12px; }
+  .conto p { padding: 10px 12px; font-size: 15px; }
+  .patti { margin-top: 24px; gap: 20px; }
+  .mappa article { padding: 16px; }
+  .mappa .fig { height: auto; min-height: 30px; }
+  .note article { padding: 16px; }
+  .corso h3 { font-size: 22px; }
+  .corso .fatti div { padding: 8px 10px; }
+  .corso .fatti dd { font-size: 15px; }
+  .corso .corpo { gap: 20px; }
+  .chi-sono { gap: 20px; }
+  .chi-sono p { font-size: 16.5px; }
+  .tabellone tr { padding: 10px 14px; }
+  .coda { height: 44px; }
+  .piede { font-size: 13px; }
+}
 </style>
 </head>
 <body>
@@ -301,7 +367,7 @@ main section { scroll-margin-top: 120px; }
     <a href="#notes">Field notes</a>
     <a href="#about">About</a>
   </nav>
-  <div class="hud"><span class="px" id="hud-m" data-s="2"></span><a class="lingua" href="https://lorenzoasuni.com" lang="it">Italiano</a></div>
+  <div class="hud"><span class="hud-l">Missions</span><span class="px" id="hud-m" data-s="2"></span><a class="lingua" href="https://lorenzoasuni.com" lang="it">Italiano</a></div>
 </header>
 <div class="pista" aria-hidden="true"><span class="corridore sprite" data-sprite="rex" data-tinta="legacy" data-w="96"></span></div>
 </div>
@@ -942,7 +1008,7 @@ main section { scroll-margin-top: 120px; }
   function aggiornaGioco() {
     var n = contaFatte();
     var hud = document.getElementById('hud-m');
-    if (hud) scriviPx(hud, 'MISSIONS ' + n + '/' + MISSIONI);
+    if (hud) scriviPx(hud, n + '/' + MISSIONI);
     var fin = document.getElementById('fin-testo');
     if (fin) fin.textContent = FINE[n];
   }
@@ -1207,14 +1273,14 @@ main section { scroll-margin-top: 120px; }
       var y = el.getBoundingClientRect().top + window.scrollY;
       var f = Math.min(1, y / corsa());
       var t = document.createElement('i'); t.className = 'tacca'; t.setAttribute('data-f', f);
-      t.style.left = (f * (pista.clientWidth - 100) + 46) + 'px';
+      t.style.left = (f * (pista.clientWidth - (corridore.offsetWidth || 96) - 4) + (corridore.offsetWidth || 96) / 2) + 'px';
       pista.appendChild(t);
     });
     corri();
   }
   function corri() {
     var f = Math.min(1, window.scrollY / corsa());
-    corridore.style.left = (f * (pista.clientWidth - 100)) + 'px';
+    corridore.style.left = (f * (pista.clientWidth - (corridore.offsetWidth || 96) - 4)) + 'px';
     pista.querySelectorAll('.tacca').forEach(function (t) { t.classList.toggle('passata', parseFloat(t.getAttribute('data-f')) <= f + 0.005); });
   }
   window.addEventListener('scroll', corri, { passive: true });
