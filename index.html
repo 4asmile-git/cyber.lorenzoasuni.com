@@ -202,6 +202,21 @@ main section { scroll-margin-top: 120px; }
 .arcade .trovate li { padding: 7px 0; border-bottom: 1px solid rgba(21,17,13,.18); font-size: 15.5px; }
 .arcade .trovate b { font-weight: 900; background: #FBF3D3; padding: 0 4px; }
 .arcade .larga { grid-column: 1 / -1; }
+.riaggancio { margin-top: 28px; }
+.riaggancio a { display: inline-block; margin: 8px 0 2px; font-weight: 900; color: var(--ink); background: var(--giallo); border: var(--filo); padding: 8px 12px; text-decoration: none; white-space: nowrap; }
+.gioco { margin-top: 28px; }
+.gioco .schermo { position: relative; aspect-ratio: 16 / 9; background: #090E0C; border: var(--filo); overflow: hidden; }
+.gioco .schermo img, .gioco .schermo iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.gioco .schermo img { object-fit: cover; }
+.gioco .schermo .apri { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font: inherit; font-weight: 900; font-size: 18px; color: var(--carta-chiara); background: var(--rosso); border: var(--filo); padding: 14px 22px; cursor: pointer; white-space: nowrap; }
+.gioco .sotto { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; margin-top: 16px; }
+.gioco h3 { font-weight: 900; font-size: 28px; line-height: 1.05; margin: 0 0 8px; }
+.gioco p { margin: 0; max-width: 46em; }
+.gioco .fonte { font-size: 14px; color: var(--nota); margin-top: 8px; }
+.gioco .comandi { display: flex; gap: 10px; }
+.gioco .comandi button { font: inherit; font-weight: 700; font-size: 14px; color: var(--ink); background: var(--giallo); border: var(--filo); padding: 8px 12px; cursor: pointer; }
+.gioco .comandi button[hidden] { display: none; }
+@media (max-width: 700px) { .gioco .schermo { aspect-ratio: 9 / 16; max-height: 82vh; } }
 .note { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 28px; border: var(--filo); background: var(--carta-chiara); }
 .note article { padding: 18px; border-right: var(--filo); border-bottom: var(--filo); }
 .note article:nth-child(4n) { border-right: 0; }
@@ -360,6 +375,7 @@ main section { scroll-margin-top: 120px; }
   <a class="nome" href="#start">Lorenzo Asuni</a>
   <nav aria-label="Sections">
     <a href="#why">Why cyber</a>
+    <a href="#game">Play</a>
     <a href="#levels">Five levels</a>
     <a href="#mix">Brand and leads</a>
     <a href="#channel">Vendor and partner</a>
@@ -455,6 +471,29 @@ main section { scroll-margin-top: 120px; }
         <p>Much of the revenue passes through partners, and many vendors have never spoken to the people who use their product. Customers rarely agree to be named. A six-month cycle hides what works until the budget has gone to the same events as last year.</p>
         <p class="punto">The slowness is the opening for a company that explains itself plainly and measures its channels.</p>
       </article>
+    </div>
+  </section>
+
+  <section class="blocco" id="game">
+    <h2>Enough reading. Something less boring.</h2>
+    <p class="guida"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="192" aria-hidden="true"></span><span class="fumetto">Those are my cousins on the island. Someone rewired them. Shoot first, then follow the clues to whoever opened the gate.</span></p>
+    <p class="intro">One case, three acts, a few minutes. The numbers are still here when you come back.</p>
+    <div class="finestra gioco">
+      <header><span class="px" data-t="BONUS LEVEL" data-s="2"></span><i aria-hidden="true"></i></header>
+      <div class="corpo">
+        <div class="schermo" id="gioco-schermo">
+          <img src="game/cover.webp" alt="" width="1376" height="768" loading="lazy">
+          <button type="button" class="apri" id="gioco-avvia">Play the case</button>
+        </div>
+        <div class="sotto">
+          <div>
+            <h3>Cyber Park: Isla Ferrum</h3>
+            <p>A 90s-style arcade shooter. Stop the hijacked cyber-dinosaurs, then read the clues to work out who breached the island.</p>
+            <p class="fonte">Made for mouse and keyboard. Nothing is sent anywhere: only your high score stays in this browser.</p>
+          </div>
+          <div class="comandi"><button type="button" id="gioco-pieno" hidden>Full screen</button><button type="button" id="gioco-chiudi" hidden>Close</button></div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -795,7 +834,9 @@ main section { scroll-margin-top: 120px; }
           </div>
         </div>
       </div>
+
     </div>
+    <p class="guida riaggancio"><span class="sprite" data-sprite="rex" data-tinta="legacy" data-w="128" aria-hidden="true"></span><span class="fumetto">Four calculators done. The dinosaurs upstairs are still loose. <a href="#game">Back to the game</a></span></p>
   </section>
 
   <section class="blocco" id="notes">
@@ -1294,6 +1335,42 @@ main section { scroll-margin-top: 120px; }
 
   var m = /[?&]side=(vendor|partner)\b/.exec(location.search);
   if (m) scegli(m[1]);
+})();
+</script>
+<script>
+(function () {
+  var schermo = document.getElementById('gioco-schermo');
+  var avvia = document.getElementById('gioco-avvia');
+  var pieno = document.getElementById('gioco-pieno');
+  var chiudi = document.getElementById('gioco-chiudi');
+  if (!schermo || !avvia) return;
+  var copertina = schermo.innerHTML;
+  function apri() {
+    var f = document.createElement('iframe');
+    f.src = 'game/';
+    f.title = 'Cyber Park: Isla Ferrum';
+    f.setAttribute('allow', 'fullscreen; autoplay');
+    f.setAttribute('allowfullscreen', '');
+    schermo.innerHTML = '';
+    schermo.appendChild(f);
+    f.addEventListener('load', function () { try { f.contentWindow.focus(); } catch (e) {} f.focus(); });
+    schermo.addEventListener('pointerdown', function () { f.focus(); });
+    pieno.hidden = !(schermo.requestFullscreen || schermo.webkitRequestFullscreen);
+    chiudi.hidden = false;
+  }
+  avvia.addEventListener('click', apri);
+  pieno.addEventListener('click', function () {
+    var r = schermo.requestFullscreen || schermo.webkitRequestFullscreen;
+    if (r) r.call(schermo);
+  });
+  chiudi.addEventListener('click', function () {
+    schermo.innerHTML = copertina;
+    pieno.hidden = true;
+    chiudi.hidden = true;
+    var b = document.getElementById('gioco-avvia');
+    b.addEventListener('click', apri);
+    b.focus();
+  });
 })();
 </script>
 </body>
